@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Detail Transaksi - AmaneShop</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary: #f43f5e;
+            --primary-light: #fb7185;
+            --bg: #0a0e1a;
+            --card-bg: #1a1f35;
+            --card-hover: #232945;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: #2d3548;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --gradient-primary: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+            --gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(244, 63, 94, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 520px;
+            padding: 25px;
+            padding-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* STATUS HEADER */
+        .status-header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 0.5s ease;
+        }
+
+        .status-icon {
+            font-size: 4rem;
+            color: var(--warning);
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .pulse { animation: pulse 2s infinite; }
+
+        .status-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status-sub {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* TIMER */
+        #timer-bar {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            color: #fbbf24;
+            padding: 15px 20px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.2);
+            animation: fadeIn 0.6s ease 0.2s both;
+        }
+
+        #timer-val {
+            font-size: 1.3rem;
+            font-family: 'Courier New', monospace;
+            margin-left: 8px;
+        }
+
+        /* RECEIPT */
+        .receipt-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            position: relative;
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.6s ease 0.3s both;
+        }
+
+        .receipt-top {
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.08) 0%, rgba(244, 63, 94, 0.02) 100%);
+            padding: 30px 25px;
+            text-align: center;
+            border-bottom: 2px dashed var(--border);
+            position: relative;
+        }
+
+        .total-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .total-amount {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 15px 0;
+            letter-spacing: -1px;
+        }
+
+        #btn-copy {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        #btn-copy:hover {
+            background: rgba(244, 63, 94, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .receipt-body { padding: 25px; }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            font-size: 1rem;
+            padding: 12px 0;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-val {
+            font-weight: 700;
+            text-align: right;
+            max-width: 60%;
+            word-wrap: break-word;
+            color: var(--text);
+        }
+
+        .font-mono {
+            font-family: 'Courier New', monospace;
+            letter-spacing: 0.5px;
+            background: rgba(244, 63, 94, 0.08);
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-bottom: 2px dashed var(--border);
+        }
+
+        /* STAMP */
+        .stamp-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg) scale(0);
+            border: 8px solid;
+            padding: 15px 30px;
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            border-radius: 16px;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10;
+            letter-spacing: 4px;
+        }
+
+        .stamp-overlay.show {
+            transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+            opacity: 0.7;
+        }
+
+        .stamp-success {
+            color: var(--success);
+            border-color: var(--success);
+            text-shadow: 0 4px 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .stamp-failed {
+            color: var(--danger);
+            border-color: var(--danger);
+            text-shadow: 0 4px 20px rgba(239, 68, 68, 0.5);
+        }
+
+        /* QR SECTION */
+        .qr-section {
+            margin-top: 30px;
+            text-align: center;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.6s ease 0.4s both;
+        }
+
+        .qr-section p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .qr-box {
+            background: white;
+            padding: 15px;
+            border-radius: 16px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .qr-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px rgba(255, 255, 255, 0.15);
+        }
+        
+        .qr-hint {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* ZOOM */
+        .zoom-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            backdrop-filter: blur(10px);
+            cursor: zoom-out;
+        }
+
+        .zoom-overlay.show { display: flex; }
+
+        /* BUTTONS */
+        .btn-group {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            animation: fadeIn 0.6s ease 0.5s both;
+        }
+
+        .btn-check {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 18px 24px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(244, 63, 94, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(244, 63, 94, 0.5);
+        }
+
+        .btn-cancel {
+            background: transparent;
+            color: var(--danger);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--danger);
+            transform: translateY(-2px);
+        }
+
+        .btn-success-action {
+            background: var(--gradient-success);
+            color: white;
+            border: none;
+            padding: 18px 24px;
+            border-radius: 14px;
+            font-weight: 900;
+            font-size: 1rem;
+            width: 100%;
+            cursor: pointer;
+            display: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5);
+            animation: bounceIn 0.6s;
+        }
+
+        .btn-success-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(16, 185, 129, 0.6);
+        }
+        
+        .btn-back {
+            background: var(--card-bg);
+            color: var(--text);
+            border: 2px solid var(--border);
+            padding: 18px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            width: 100%;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            border-color: var(--primary);
+            background: rgba(244, 63, 94, 0.05);
+            transform: translateY(-2px);
+        }
+
+        /* STATES */
+        .hidden { display: none !important; }
+
+        .state-success .status-icon {
+            color: var(--success);
+            animation: none;
+        }
+
+        .state-success .total-amount {
+            background: var(--gradient-success);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .state-failed .status-icon {
+            color: var(--danger);
+            animation: none;
+        }
+
+        .state-failed .total-amount {
+            color: var(--danger);
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            60% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 480px) {
+            .main-container { padding: 20px 15px; }
+            .status-icon { font-size: 3.5rem; }
+            .status-text { font-size: 1.3rem; }
+            .total-amount { font-size: 2.2rem; }
+            .stamp-overlay { font-size: 2.5rem; padding: 12px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container" id="main-ui">
+        
+        <div class="status-header">
+            <div class="status-icon pulse" id="status-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="status-text" id="status-text">Menunggu Pembayaran</div>
+            <div class="status-sub" id="status-sub">Selesaikan pembayaran sebelum waktu habis</div>
+        </div>
+
+        <div id="timer-bar">
+            <i class="fas fa-stopwatch"></i>
+            <span>Sisa Waktu:</span>
+            <span id="timer-val">--:--</span>
+        </div>
+
+        <div class="receipt-card">
+            <div id="stamp" class="stamp-overlay">LUNAS</div>
+
+            <div class="receipt-top">
+                <div class="total-label">Total Pembayaran</div>
+                <div class="total-amount" id="disp-amount">Rp 0</div>
+                <button onclick="copyAmount()" id="btn-copy">
+                    <i class="far fa-copy"></i> Salin Nominal
+                </button>
+            </div>
+
+            <div class="receipt-body">
+                <div class="info-row">
+                    <span class="info-label">
+                        <i class="fas fa-hashtag"></i> ID Transaksi
+                    </span>
+                    <span class="info-val font-mono" id="disp-trxid">#...</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">
+                        <i class="far fa-calendar"></i> Tanggal
+                    </span>
+                    <span class="info-val" id="disp-date">-</span>
+                </div>
+                
+                <div class="divider"></div>
+                
+                <div class="info-row">
+                    <span class="info-label">
+                        <i class="fas fa-box"></i> Produk
+                    </span>
+                    <span class="info-val" id="disp-item">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label" id="label-target">
+                        <i class="fas fa-crosshairs"></i> Tujuan
+                    </span>
+                    <span class="info-val" id="disp-target">-</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">
+                        <i class="fas fa-user"></i> Pembeli
+                    </span>
+                    <span class="info-val" id="disp-buyer">-</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="qr-section" id="qr-area">
+            <p><i class="fas fa-qrcode"></i> Scan QRIS untuk melakukan pembayaran</p>
+            <div class="qr-box" onclick="toggleZoom(true)">
+                <div id="qrcode"></div>
+            </div>
+            <div class="qr-hint">
+                <i class="fas fa-search-plus"></i>
+                <span>Klik QR Code untuk memperbesar</span>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button id="btn-check" onclick="manualCheck()" class="btn-check">
+                <i class="fas fa-sync-alt"></i> Cek Status Pembayaran
+            </button>
+            <button id="btn-cancel" onclick="cancelTrx()" class="btn-cancel">
+                <i class="fas fa-times-circle"></i> Batalkan Pesanan
+            </button>
+            
+            <button id="btn-success" onclick="window.location.href='/'" class="btn-success-action">
+                <i class="fas fa-check-circle"></i> Lihat Data Pembelian
+            </button>
+            
+            <button id="btn-back" onclick="window.location.href='/'" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+            </button>
+        </div>
+    </div>
+
+    <div class="zoom-overlay" id="zoomOverlay" onclick="toggleZoom(false)">
+        <div id="qrcode-zoom"></div>
+        <p style="color:white; margin-top:20px;"><i class="fas fa-times-circle"></i> Klik untuk menutup</p>
+    </div>
+
+    <script>
+        let trxData = null;
+        let checkInterval = null;
+
+        window.onload = function() {
+            const rawData = localStorage.getItem('pending_trx');
+            if(!rawData) {
+                Swal.fire('Error', 'Data transaksi tidak ditemukan.', 'error');
+                return window.location.href='/';
+            }
+            
+            trxData = JSON.parse(rawData);
+
+            document.getElementById('disp-trxid').innerText = '#' + trxData.transaction_id;
+            document.getElementById('disp-amount').innerText = 'Rp ' + parseInt(trxData.amount).toLocaleString('id-ID');
+            document.getElementById('disp-item').innerText = trxData.item;
+            document.getElementById('disp-buyer').innerText = trxData.user_name || 'Guest';
+            
+            const now = new Date();
+            document.getElementById('disp-date').innerText = now.toLocaleDateString('id-ID', {
+                day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+
+            const labelEl = document.getElementById('label-target');
+            const valEl = document.getElementById('disp-target');
+            
+            if(trxData.category === 'panel') {
+                labelEl.innerHTML = '<i class="fas fa-user-circle"></i> Username Panel';
+                valEl.innerText = trxData.target_data || trxData.username || '-';
+            } else if(trxData.category === 'subdomain') {
+                labelEl.innerHTML = '<i class="fas fa-globe"></i> Domain';
+                valEl.innerText = trxData.item;
+            } else {
+                labelEl.innerHTML = '<i class="fas fa-phone"></i> Nomor Tujuan';
+                valEl.innerText = trxData.target_data || trxData.phone || '-';
+            }
+
+            const qrOpts = {
+                text: trxData.qr_string, width: 200, height: 200,
+                colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.H
+            };
+            new QRCode(document.getElementById("qrcode"), qrOpts);
+            new QRCode(document.getElementById("qrcode-zoom"), {...qrOpts, width: 320, height: 320});
+
+            const expiry = now.getTime() + (5 * 60 * 1000);
+            startTimer(expiry);
+            startAutoCheck();
+        };
+
+        function uiSuccess() {
+            clearInterval(checkInterval);
+            localStorage.removeItem('pending_trx');
+            
+            document.getElementById('main-ui').classList.add('state-success');
+            document.getElementById('status-icon').innerHTML = '<i class="fas fa-check-circle"></i>';
+            document.getElementById('status-icon').classList.remove('pulse');
+            document.getElementById('status-text').innerText = 'Pembayaran Berhasil!';
+            document.getElementById('status-sub').innerText = 'Transaksi Anda telah berhasil diproses';
+            document.getElementById('qr-area').classList.add('hidden');
+            document.getElementById('timer-bar').classList.add('hidden');
+            document.getElementById('stamp').classList.add('stamp-success', 'show');
+            document.getElementById('btn-check').style.display = 'none';
+            document.getElementById('btn-cancel').style.display = 'none';
+            document.getElementById('btn-success').style.display = 'block';
+            
+            Swal.fire({
+                icon: 'success', title: 'Pembayaran Berhasil!',
+                text: 'Pesanan Anda sedang diproses.', toast: true, position: 'top',
+                showConfirmButton: false, timer: 3000, timerProgressBar: true
+            });
+        }
+
+        function uiFailed(isCancelled) {
+            clearInterval(checkInterval);
+            localStorage.removeItem('pending_trx');
+            
+            document.getElementById('main-ui').classList.add('state-failed');
+            document.getElementById('status-icon').innerHTML = '<i class="fas fa-times-circle"></i>';
+            document.getElementById('status-icon').classList.remove('pulse');
+            document.getElementById('status-text').innerText = isCancelled ? 'Transaksi Dibatalkan' : 'Waktu Habis';
+            document.getElementById('status-sub').innerText = 'Silakan lakukan pemesanan ulang.';
+            document.getElementById('qr-area').classList.add('hidden');
+            document.getElementById('timer-bar').classList.add('hidden');
+            document.getElementById('stamp').innerText = isCancelled ? 'DIBATALKAN' : 'EXPIRED';
+            document.getElementById('stamp').classList.add('stamp-failed', 'show');
+            document.getElementById('btn-check').style.display = 'none';
+            document.getElementById('btn-cancel').style.display = 'none';
+            document.getElementById('btn-back').style.display = 'block';
+            
+            Swal.fire({
+                icon: 'error', title: isCancelled ? 'Dibatalkan' : 'Waktu Habis',
+                text: 'Transaksi tidak dapat dilanjutkan.', toast: true, position: 'top',
+                showConfirmButton: false, timer: 3000
+            });
+        }
+
+        function startTimer(expiryTime) {
+            const el = document.getElementById('timer-val');
+            const interval = setInterval(() => {
+                const diff = expiryTime - new Date().getTime();
+                if(diff < 0) { clearInterval(interval); uiFailed(false); }
+                else {
+                    const m = Math.floor((diff % 3600000) / 60000);
+                    const s = Math.floor((diff % 60000) / 1000);
+                    el.innerText = `${m}:${s < 10 ? '0' + s : s}`;
+                }
+            }, 1000);
+        }
+
+        function startAutoCheck() {
+            checkInterval = setInterval(() => checkStatus(trxData.transaction_id, true), 3000);
+        }
+
+        async function checkStatus(trxId, silent) {
+            try {
+                const res = await fetch('/api/transaction/check', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({transaction_id: trxId})
+                });
+                const json = await res.json();
+
+                if(json.status === 'success' || json.status === 'completed') {
+                    uiSuccess();
+                } else if(json.status === 'expired' || json.status === 'failed' || json.status === 'canceled') {
+                    uiFailed(json.status === 'canceled');
+                } else {
+                    if(!silent) {
+                        Swal.fire({
+                            icon: 'info', title: 'Belum Lunas',
+                            text: 'Pembayaran belum terdeteksi. Silakan selesaikan pembayaran.',
+                            toast: true, position: 'top', showConfirmButton: false, timer: 2000
+                        });
+                    }
+                }
+            } catch(e) { console.error('Error checking status:', e); }
+        }
+
+        function manualCheck() {
+            Swal.fire({ title: 'Mengecek Pembayaran...', didOpen: () => Swal.showLoading() });
+            checkStatus(trxData.transaction_id, false);
+        }
+        
+        function cancelTrx() {
+            Swal.fire({
+                title: 'Batalkan Transaksi?',
+                text: 'Transaksi ini akan dibatalkan dan tidak dapat dikembalikan.',
+                icon: 'warning', showCancelButton: true,
+                confirmButtonText: 'Ya, Batalkan', cancelButtonText: 'Tidak',
+                confirmButtonColor: '#ef4444', cancelButtonColor: '#6b7280'
+            }).then(r => {
+                if(r.isConfirmed) {
+                    fetch('/api/transaction/cancel', {
+                        method: 'POST', headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({transaction_id: trxData.transaction_id})
+                    });
+                    uiFailed(true);
+                }
+            });
+        }
+        
+        function toggleZoom(show) {
+            document.getElementById('zoomOverlay').classList.toggle('show', show);
+        }
+        
+        function copyAmount() {
+            navigator.clipboard.writeText(trxData.amount);
+            Swal.fire({
+                icon: 'success', title: 'Tersalin!',
+                text: 'Nominal pembayaran berhasil disalin', toast: true, position: 'top',
+                showConfirmButton: false, timer: 1500
+            });
+        }
+    </script>
+</body>
+</html>

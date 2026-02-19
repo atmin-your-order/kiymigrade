@@ -1,0 +1,823 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Toko Online || AmaneShop</title>
+    <link rel="icon" type="image/jpeg" href="images/Riki.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+</head>
+<body data-theme="dark">
+
+<div id="effect-container" style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999;"></div>
+
+<div id="intro-overlay" style="position:fixed; inset:0; z-index:11000; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; transition: opacity 0.8s ease-out;">
+    
+    <div id="intro-content" style="margin-bottom: 50px;">
+        <div style="position:relative; display:inline-block;">
+             <img src="images/Riki.jpg" style="width:100px; height:100px; border-radius:15px; border:3px solid #fbbf24; object-fit:cover; animation: pulse 1.5s infinite; box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);">
+        </div>
+        <h2 style="color:white; font-style:italic; font-weight:900; margin-top:15px; text-shadow: 2px 2px 0px #000;">SELAMAT DATANG DI TOKO DIGITAL AMANE SHOP</h2>
+    </div>
+
+    <div class="ff-loader-container">
+        <div class="ff-loading-text">LOADING... <span id="ff-percent">0%</span></div>
+        <div class="ff-bar-track">
+            <div class="ff-bar-fill" id="ff-fill"></div>
+        </div>
+    </div>
+
+    </div>
+
+    <div id="ios-notif-container"></div>
+    <div id="zoom-modal" onclick="this.style.display='none'"><div id="zoom-img"></div></div>
+    <div id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+    <div id="sidebar">
+        <div class="sidebar-profile-header">
+            <div class="sidebar-user-content">
+                <div class="sidebar-avatar-wrap">
+                    <img src="images/logo.jpg" id="sidebar-img" class="sidebar-avatar">
+                    <div class="sidebar-edit-btn" onclick="openProfileView()">
+                        <i class="fas fa-pen"></i>
+                    </div>
+                </div>
+                
+                <div class="sidebar-user-text" style="margin-top: 15px;">
+                    <b id="sidebar-name">Guest</b>
+                    <span id="sidebar-username">@guest</span>
+                    <small id="sidebar-phone">Belum Login</small>
+                </div>
+            </div>
+        </div>
+
+        <ul class="sidebar-menu">
+        <li onclick="window.location.href='/trxsultan'">
+    <i class="fas fa-crown" style="color: #fbbf24;"></i> Top Leaderboard Sultan
+</li>
+            <li onclick="checkAuthAction(showDataPanel)">
+                <i class="fas fa-server" style="color: #10b981;"></i> Data Panel Anda
+            </li>
+            <li onclick="checkAuthAction(showDataSubdomain)">
+    <i class="fas fa-globe" style="color: #8b5cf6;"></i> Data Subdomain
+</li>
+            <li onclick="checkAuthAction(showDataScript)">
+                <i class="fas fa-file-code" style="color: #3b82f6;"></i> Data Script Anda
+            </li>
+            <li onclick="checkAuthAction(showDataCourse)">
+                <i class="fas fa-graduation-cap" style="color: #d97706;"></i> Data Murid/Join
+            </li>
+<li onclick="checkAuthAction(showDataApps)">
+    <i class="fas fa-layer-group" style="color: #ef4444;"></i> Data Aplikasi
+</li>
+            <li onclick="window.open('https://wa.me/6282312934025', '_blank')">
+                <i class="fab fa-whatsapp" style="color: #25D366;"></i> Hubungi Owner
+                </li>
+            <li onclick="window.open('https://t.me/amaneofc', '_blank')">
+                <i class="fab fa-telegram-plane" style="color: #25D366;"></i> Customer Service AR
+            <li onclick="toggleSidebar()">
+                <i class="fas fa-arrow-left" style="color: var(--text-muted);"></i> Tutup Menu
+            </li>
+        </ul>
+        <div style="margin-top:auto; text-align:center; color:var(--text-muted); padding-bottom:20px;">
+            <small>&copy; AmaneShop Real</small>
+        </div>
+    </div>
+
+    <div id="profile-view">
+    <div style="position:fixed; top:0; width:100%; z-index:50; background:rgba(15, 23, 42, 0.8); backdrop-filter:blur(10px); padding:15px; display:flex; align-items:center; border-bottom:1px solid rgba(255,255,255,0.1);">
+        <i class="fas fa-arrow-left" onclick="closeProfileView()" style="font-size:1.2rem; cursor:pointer; color:white; width:40px;"></i>
+        <h3 style="margin:0; color:white; font-size:1.1rem;">Profil Saya</h3>
+    </div>
+
+    <div style="position:relative; margin-top:60px;">
+        <div class="profile-banner-wrap" onclick="document.getElementById('upload-banner').click()">
+            <img src="images/banner-default.jpg" id="img-banner-view" style="width:100%; height:180px; object-fit:cover; display:block;">
+            <div class="banner-overlay"><i class="fas fa-camera"></i> Ganti Banner</div>
+        </div>
+        <input type="file" id="upload-banner" accept="image/*" style="display:none;" onchange="handleBannerChange(event)">
+
+        <div class="profile-avatar-center">
+            <div style="position:relative; display:inline-block;">
+                <img src="images/logo.jpg" id="profile-img-large" class="avatar-circle">
+                <div class="avatar-edit-icon" onclick="document.getElementById('upload-avatar').click()">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+            <input type="file" id="upload-avatar" accept="image/*" style="display: none;" onchange="handleProfilePicChange(event)">
+        </div>
+    </div>
+
+    <div style="text-align:center; margin-top:60px; padding:0 20px;">
+        <h2 id="disp-name" style="color:white; margin:0; font-size:1.5rem;">Nama User</h2>
+        <p id="disp-username" style="color:var(--text-muted); margin:5px 0 0 0;">@username</p>
+        
+        <div style="display:flex; justify-content:center; gap:15px; margin-top:15px;">
+            <div class="stat-badge"><i class="fas fa-calendar-alt"></i> Join: <span id="disp-join">Loading...</span></div>
+            <div class="stat-badge"><i class="fas fa-phone"></i> <span id="disp-phone">+62...</span></div>
+        </div>
+    </div>
+
+    <div class="profile-content" style="margin-top:30px; padding-bottom:100px;">
+        <h4 style="color:var(--primary); margin-bottom:15px; border-bottom:1px solid var(--border); padding-bottom:10px;">Pengaturan Akun</h4>
+
+        <div class="profile-field disabled">
+            <i class="fas fa-user-lock"></i>
+            <div class="profile-field-content">
+                <label>Username (Permanen)</label>
+                <input type="text" id="p-username" disabled>
+            </div>
+            <i class="fas fa-lock" style="font-size:0.8rem; color:#ef4444;"></i>
+        </div>
+
+        <div class="profile-field disabled">
+            <i class="fas fa-phone"></i>
+            <div class="profile-field-content">
+                <label>Nomor WhatsApp</label>
+                <input type="text" id="p-phone" disabled>
+            </div>
+            <i class="fas fa-lock" style="font-size:0.8rem; color:#ef4444;"></i>
+        </div>
+
+        <div class="profile-field" style="border-color: var(--primary);">
+            <i class="fas fa-user-edit"></i>
+            <div class="profile-field-content">
+                <label>Nama Lengkap</label>
+                <input type="text" id="p-name" placeholder="Nama Anda">
+            </div>
+        </div>
+        <small id="name-change-info" style="display:block; color:var(--text-muted); font-size:0.75rem; margin-top:-10px; margin-bottom:20px; text-align:right;">
+            *Nama bisa diganti 7 hari sekali.
+        </small>
+
+        <button class="btn-save-profile" onclick="saveProfileChanges()">SIMPAN PERUBAHAN</button>
+        
+        <button onclick="doLogout()" style="margin-top:25px; background:rgba(239, 68, 68, 0.1); border:1px solid #ef4444; color:#ef4444; padding:15px; width:100%; border-radius:12px; cursor:pointer; font-weight:bold; display:flex; align-items:center; justify-content:center; gap:10px;">
+            <i class="fas fa-sign-out-alt"></i> KELUAR AKUN
+        </button>
+    </div>
+</div>
+      
+    <div id="modal-benefit" class="modal-overlay" onclick="closeModal('modal-benefit')">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <span class="close-modal" onclick="closeModal('modal-benefit')">&times;</span>
+            <h3 style="color:var(--primary); margin-bottom:15px; text-align:center;">Keuntungan Premium</h3>
+            <ul class="info-list" style="list-style:none; padding:0; text-align:left;">
+                <li style="padding:10px 0; border-bottom:1px solid var(--border);"><i class="fas fa-check-circle" style="color:green; margin-right:10px;"></i> Panel aktif 30 hari full</li>
+                <li style="padding:10px 0; border-bottom:1px solid var(--border);"><i class="fas fa-check-circle" style="color:green; margin-right:10px;"></i> Garansi full 30 hari ganti baru</li>
+                <li style="padding:10px 0; border-bottom:1px solid var(--border);"><i class="fas fa-check-circle" style="color:green; margin-right:10px;"></i> bisa di perpanjang</li>
+                <li style="padding:10px 0; border-bottom:1px solid var(--border);"><i class="fas fa-check-circle" style="color:green; margin-right:10px;"></i> Panel Panel Vripat anti rusuh</li>
+                <li style="padding:10px 0; border-bottom:1px solid var(--border);"><i class="fas fa-check-circle" style="color:green; margin-right:10px;"></i> anti colong sc 100% aman terjaga</li>
+                <li style="padding:10px 0; border-bottom:1px solid var(--border);"><i class="fas fa-check-circle" style="color:green; margin-right:10px;"></i> Support Run Bot WA & Website</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-script-menu" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeModal('modal-script-menu')">&times;</span>
+            <h3 style="color:var(--primary); text-align:center;">Fitur Script Ini</h3>
+            <ul id="script-features-list" class="info-list" style="margin-top:15px; list-style:none;">
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-datapanel" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeModal('modal-datapanel')">&times;</span>
+            <h3 style="color:var(--primary); margin-bottom:15px; text-align:center;">Data Panel Anda</h3>
+            <div id="list-panels">Loading...</div>
+        </div>
+    </div>
+
+    <div id="modal-datasubdomain" class="modal-overlay">
+    <div class="modal-box">
+        <span class="close-modal" onclick="closeModal('modal-datasubdomain')">&times;</span>
+        <h3 style="color:#8b5cf6; text-align:center; margin-bottom:20px;">
+            <i class="fas fa-globe"></i> Domain Saya
+        </h3>
+        <div id="list-subdomains" style="min-height:100px;">
+            <p style="text-align:center;">Loading...</p>
+        </div>
+    </div>
+</div>
+
+    <div id="modal-datascript" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeModal('modal-datascript')">&times;</span>
+            <h3 style="color:var(--primary); text-align:center;">Script Saya</h3>
+            <div id="list-scripts" style="margin-top:15px;">Loading...</div>
+        </div>
+    </div>
+
+    <div id="modal-datacourse" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeModal('modal-datacourse')">&times;</span>
+            <h3 style="color:var(--primary); text-align:center;">Kelas Saya</h3>
+            <div id="list-courses" style="margin-top:15px;">Loading...</div>
+        </div>
+    </div>
+    
+    <div id="modal-datavps" class="modal-overlay">
+    <div class="modal-box">
+        <span class="close-modal" onclick="closeModal('modal-datavps')">&times;</span>
+        <h3 style="color:var(--primary); text-align:center;">VPS Saya</h3>
+        <div id="list-vps" style="margin-top:15px;">Loading...</div>
+    </div>
+</div>
+
+    <div id="modal-detail" class="modal-overlay" style="z-index: 3001;">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeModal('modal-detail')">&times;</span>
+            <h3 style="color:var(--primary); text-align:center;">Detail Server</h3>
+            <div id="detail-content" style="margin-top:15px; font-size:0.9rem;"></div>
+        </div>
+    </div>
+
+    <div id="modal-cara" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeModal('modal-cara')">&times;</span>
+            <h3>Cara Pembelian</h3>
+            <ul class="info-list" style="margin-top:10px; list-style:none;">
+                <li style="padding:5px 0;">1. Login / Daftar Akun Member.</li>
+                <li style="padding:5px 0;">2. Pilih Kategori (Panel / Script / Murid / Sewa).</li>
+                <li style="padding:5px 0;">3. Isi Username / No WA.</li>
+                <li style="padding:5px 0;">4. Pilih Paket & Bayar via QRIS.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-notif" class="modal-overlay">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeModal('modal-notif')">&times;</span>
+            <h3 style="text-align:center; margin-bottom:10px;">Kotak Masuk</h3>
+            <div id="list-notif" style="max-height:300px; overflow-y:auto;"></div>
+        </div>
+    </div>
+    
+        <div id="modal-reviews" class="modal-overlay">
+        <div class="modal-box" style="max-height: 80vh; overflow-y: auto;">
+            <span class="close-modal" onclick="closeModal('modal-reviews')">&times;</span>
+            <h3 style="text-align:center; margin-bottom:10px;">Ulasan Pembeli</h3>
+            
+            <div id="review-product-name" style="text-align:center; color:var(--primary); font-weight:bold; margin-bottom:20px;"></div>
+
+            <div id="review-form-box" style="background:var(--bg-body); padding:15px; border-radius:10px; border:1px solid var(--border); margin-bottom:20px;">
+                <label style="font-size:0.9rem;">Berikan Rating:</label>
+                <div class="star-input-wrapper" id="star-input-wrapper">
+                    <i class="fas fa-star" data-val="1" onclick="setRating(1)"></i>
+                    <i class="fas fa-star" data-val="2" onclick="setRating(2)"></i>
+                    <i class="fas fa-star" data-val="3" onclick="setRating(3)"></i>
+                    <i class="fas fa-star" data-val="4" onclick="setRating(4)"></i>
+                    <i class="fas fa-star" data-val="5" onclick="setRating(5)"></i>
+                    <span id="rating-text" style="font-size:0.9rem; margin-left:10px; color:var(--text-muted)">(0/5)</span>
+                </div>
+                
+                <textarea id="review-comment" class="form-input" placeholder="Tulis pengalaman Anda..." style="height:80px; margin-top:10px;"></textarea>
+                <button onclick="submitReview()" class="btn-submit" style="margin-top:5px; padding:10px; font-size:0.9rem;">KIRIM ULASAN</button>
+            </div>
+
+            <div id="review-list" style="display:flex; flex-direction:column; gap:10px;">
+                <p style="text-align:center;">Memuat ulasan...</p>
+            </div>
+        </div>
+    </div>
+
+<div id="app-view">
+        <nav style="background: transparent; box-shadow: none; position: absolute; top:0; width:100%; z-index: 10;">
+            <div class="nav-left">
+                <div class="nav-profile-trigger" onclick="toggleSidebar()">
+                    <img src="images/logo.jpg" id="nav-img-small" class="nav-avatar-small" style="border: 2px solid white;">
+                    <div class="nav-user-info">
+                        <div id="nav-greeting" style="font-weight: bold; font-size: 0.95rem; color: white;">Hi, Guest</div>
+                        <small style="font-size:0.65rem; color: rgba(255,255,255,0.8); letter-spacing:1px;">KLIK MENU</small>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-icons">
+                <div id="nav-guest-btn">
+                     <a href="/login" style="background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.4); color:white; padding:6px 14px; border-radius:20px; cursor:pointer; font-size:0.85rem; font-weight: bold; text-decoration:none;">Login</a>
+                </div>
+                <div class="bell-wrap" onclick="showNotifications()">
+                    <i id="bell-icon" class="fas fa-bell" style="font-size:1.2rem; color: white;"></i>
+                    <div class="bell-dot" id="bell-dot" style="border: 2px solid var(--primary);"></div>
+                </div>
+                <div onclick="toggleTheme()" style="cursor:pointer; padding:5px;">
+                    <i id="theme-icon" class="fas fa-adjust" style="font-size:1.2rem; color: white;"></i>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="dashboard-header">
+            <div style="height: 20px;"></div> 
+            <h3 style="margin:0; font-size:1.2rem;">TOKO DIGITAL AMANE SHOP</h3>
+            <p style="margin:0; font-size:0.8rem; opacity:0.8;">MARKET DIGITAL TERPERCAYA</p>
+        </div>
+
+        <div class="stats-floating-card">
+            <div class="stat-item-new">
+                <div class="stat-icon-circle" style="background:rgba(16, 185, 129, 0.1); color:#10b981;">
+                    <i class="fas fa-users"></i>
+                </div>
+                <b id="count-visitor">0</b>
+                <span>Pengunjung</span>
+            </div>
+            
+            <div class="stat-item-new">
+                <div class="stat-icon-circle" style="background:rgba(59,130,246,0.1); color:#3b82f6;">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <b id="count-users">0</b>
+                <span>Member Shop</span>
+            </div>
+            
+            <div class="stat-item-new">
+                <div class="stat-icon-circle" style="background:rgba(16, 185, 129, 0.1); color:#10b981;">
+                    <i class="fas fa-check-circle"></i> </div>
+                <b id="count-trx">0</b>
+                <span>Transaksk Sukses</span> </div>
+            
+            <div class="stat-item-new">
+                <div class="stat-icon-circle" style="background:rgba(236,72,153,0.1); color:#ec4899;">
+                    <i class="fas fa-server"></i>
+                </div>
+                <b id="count-uptime" style="font-size:0.8rem; padding-top:2px;">99%</b>
+                <span>Ruptime</span>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="banner-container" style="margin-top: 0;">
+                <div class="banner-wrapper" id="banner-wrapper">
+                    <div class="banner-slide"><img src="images/logo1.jpg" alt="Banner 1"></div>
+                    <div class="banner-slide"><img src="images/logo2.jpg" alt="Banner 2"></div>
+                    <div class="banner-slide"><img src="images/logo3.jpg" alt="Banner 3"></div>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom:15px; color:var(--text-main); font-size:1rem; margin-left:5px;">Layanan Digital</h3>
+            <div class="service-menu-grid">
+                 <div class="service-item active" onclick="switchCategory('panel', this)">
+                    <div class="icon-box bg-panel"><i class="fas fa-server"></i></div>
+                    <span>Panel</span>
+                </div>
+                <div class="service-item" onclick="switchCategory('script', this)">
+                    <div class="icon-box bg-script"><i class="fas fa-code"></i></div>
+                    <span>Script</span>
+                </div>
+                <div class="service-item" onclick="switchCategory('course', this)">
+                    <div class="icon-box" style="background:#fef3c7; color:#d97706;"><i class="fas fa-graduation-cap"></i></div>
+                    <span>Join Murid</span>
+                </div>
+                <div class="service-item" onclick="switchCategory('subdomain', this)">
+                    <div class="icon-box" style="background:#8b5cf6;"><i class="fas fa-globe"></i></div>
+                    <span>Subdomain</span>
+                </div>
+    <div class="service-item" onclick="switchCategory('vps', this)">
+        <div class="icon-box" style="background:#6366f1; color:white;"><i class="fas fa-hdd"></i></div>
+        <span>VPS</span>
+    </div>
+<div class="service-item" onclick="switchCategory('app', this)">
+        <div class="icon-box" style="background:#ef4444; color:white;"><i class="fab fa-spotify"></i></div>
+        <span>Premium App</span>
+    </div>
+            </div>
+
+<div class="step-card">
+    <div class="step-number">1</div>
+    
+    <div id="step-panel-view">
+    <h3>Buat Username Panel</h3>
+    <input type="text" id="username" class="form-input" placeholder="Username Panel (Ex: server-amane)">
+    <small style="color:var(--text-muted)">*Password otomatis.</small>
+    <button onclick="openModal('modal-benefit')" class="btn-benefit-link"><i class="fas fa-star"></i> LIHAT KEUNTUNGAN PANEL</button>
+    
+    <button onclick="openModal('modal-cara')" class="btn-benefit-link" style="margin-top:8px; background:rgba(236, 72, 153, 0.1); color:#ec4899; border:1px solid #ec4899;">
+        <i class="fas fa-book-open"></i> BACA PANDUAN CARA BELI
+    </button>
+</div>
+    
+<div id="step-script-view" style="display:none;">
+    <h3>Masukkan Nomor WhatsApp</h3>
+    <input type="number" id="script-phone" class="form-input" placeholder="Nomor WA (08xx)">
+    <small style="color:var(--text-muted)">*File dikirim ke nomor ini.</small>
+    <button onclick="showScriptFeatures()" class="btn-benefit-link"><i class="fas fa-list"></i> CEK MENU SCRIPT INI</button>
+
+    <button onclick="openModal('modal-cara')" class="btn-benefit-link" style="margin-top:8px; background:rgba(236, 72, 153, 0.1); color:#ec4899; border:1px solid #ec4899;">
+        <i class="fas fa-book-open"></i> BACA PANDUAN CARA BELI
+    </button>
+</div>
+
+<div id="step-course-view" style="display:none;">
+    <h3>Nomor WhatsApp (Untuk Join)</h3>
+    <input type="number" id="course-phone" class="form-input" placeholder="Nomor WA (08xx)">
+    <small style="color:var(--text-muted)">*Link grup/materi dikirim ke nomor ini.</small>
+    <div id="course-desc-box" ...></div>
+
+    <button onclick="openModal('modal-cara')" class="btn-benefit-link" style="margin-top:8px; background:rgba(236, 72, 153, 0.1); color:#ec4899; border:1px solid #ec4899;">
+        <i class="fas fa-book-open"></i> BACA PANDUAN CARA BELI
+    </button>
+</div>
+
+<div id="step-vps-view" style="display:none;">
+    <h3>Informasi Pembeli VPS</h3>
+    <input type="number" id="vps-phone" class="form-input" placeholder="Nomor WhatsApp (08xx)">
+    <div style="background:rgba(239,68,68,0.1); color:#ef4444; padding:10px; border-radius:8px; font-size:0.85rem; margin-top:5px; border:1px solid rgba(239,68,68,0.3);">
+        <i class="fas fa-info-circle"></i> <b>PENTING:</b><br>
+        Setelah pembayaran sukses, sistem akan memberikan kontak Owner. Anda harus chat manual untuk klaim/setup VPS.
+    </div>
+</div>
+
+<div id="step-app-view" style="display:none;">
+    <h3>Nomor WhatsApp (Penerima Akun)</h3>
+    <input type="number" id="app-phone" class="form-input" placeholder="Nomor WA (08xx)">
+    <small style="color:var(--text-muted)">*Akun Premium (Email/Pass) akan dikirim otomatis ke WA ini.</small>
+    
+    <button onclick="openModal('modal-cara')" class="btn-benefit-link" style="margin-top:8px;">
+        <i class="fas fa-book-open"></i> PANDUAN
+    </button>
+</div>
+
+<div id="step-subdomain-view" style="display:none;">
+    <h3 style="margin-bottom:15px;">Konfigurasi Subdomain</h3>
+    <div style="margin-bottom:15px;">
+        <label style="font-size:0.85rem; color:var(--text-muted); display:block; margin-bottom:5px;">Nama Subdomain</label>
+        <div style="display:flex; align-items:center; gap:10px;">
+            <input type="text" id="sub-name" class="form-input" style="margin:0;" placeholder="contoh: amaneshop">
+            <span style="font-weight:bold; font-size:1.5rem; color:var(--text-muted);">.</span>
+        </div>
+        <small style="color:var(--text-muted); font-size:0.75rem;">*Hanya huruf kecil & angka, tanpa spasi.</small>
+    </div>
+
+    <div style="margin-bottom:15px;">
+        <label style="font-size:0.85rem; color:var(--text-muted); display:block; margin-bottom:5px;">IP Address VPS</label>
+        <input type="text" id="sub-ip" class="form-input" placeholder="contoh: 103.1.1.1">
+    </div>
+
+    <div id="subdomain-desc-box" style="display:none; background:rgba(255, 255, 255, 0.05); border:1px solid var(--primary); color:var(--text-main); padding:15px; border-radius:10px; margin-top:10px; font-size:0.9rem; line-height:1.6; animation: fadeIn 0.5s;">
+    </div>
+
+    <button onclick="openModal('modal-cara')" class="btn-benefit-link" style="margin-top:8px; background:rgba(236, 72, 153, 0.1); color:#ec4899; border:1px solid #ec4899;">
+        <i class="fas fa-book-open"></i> BACA PANDUAN CARA BELI
+    </button>
+</div>
+</div>
+
+            <div class="step-card">
+                <div class="step-number">2</div><h3>Pilih Paket</h3>
+                
+                <div class="grid-products" id="prod-list"></div>
+                
+                <div id="step2-subdomain-view" style="display:none; margin-top:15px;">
+                    <div style="margin-bottom:15px;">
+                        <label style="font-size:0.85rem; color:var(--text-muted); display:block; margin-bottom:5px;">Pilih Domain Belakang</label>
+                        <select id="sub-domain-select" class="form-input" style="background:var(--bg-body); color:var(--text-main);">
+                            <option value="">-- Pilih Kategori Dulu --</option>
+                        </select>
+                    </div>
+                    
+                    <div style="background:rgba(139, 92, 246, 0.1); padding:15px; border-radius:10px; border:1px solid #8b5cf6; display:flex; justify-content:space-between; align-items:center;">
+                        <small style="color:var(--text-main); font-weight:bold;">Total Harga:</small>
+                        <b id="subdomain-price-display" style="color:#8b5cf6; font-size:1.2rem;">Rp 0</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+    <div class="step-number">3</div><h3>Pembayaran</h3>
+    
+    <div style="background:var(--bg-body); padding:1rem; border-radius:10px; border:1px solid var(--primary); display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <i class="fas fa-qrcode fa-2x"></i>
+            <div><b>QRIS Otomatis</b><br><small style="color:var(--text-muted)">Support all payment</small></div>
+        </div>
+        <i class="fas fa-check-circle" style="color:var(--primary)"></i>
+    </div>
+
+    <button class="btn-submit" id="btn-pay" onclick="checkAuthAction(preValidateOrder)">
+        <i class="fas fa-paper-plane"></i> PESAN SEKARANG
+    </button>
+</div>
+        </div>
+
+<footer class="footer-modern" style="position:relative; background: #0f172a; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'Segoe UI', sans-serif; overflow:hidden; font-size: 0.9rem; line-height: 1.5;">
+    
+    <div class="footer-glow" style="position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:500px; height:180px; background:radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%); filter:blur(60px); pointer-events:none;"></div>
+
+    <div class="footer-container" style="max-width:1200px; margin:0 auto; padding: 40px 20px 20px 20px; position:relative; z-index:2;">
+        
+        <div class="footer-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; margin-bottom: 30px;">
+            
+            <div class="footer-col">
+                <div class="brand-header" style="display:flex; align-items:center; gap:12px; margin-bottom:15px;">
+                    <img src="images/Riki.jpg" alt="Logo" style="width:50px; height:50px; border-radius:12px; border:2px solid var(--primary); object-fit:cover;">
+                    <div>
+                        <h2 style="font-size:1.3rem; margin:0; color:#fff; font-weight:700;">AmaneShop</h2>
+                        <span style="font-size:0.75rem; color:var(--primary); letter-spacing:0.5px; font-weight:600; text-transform:uppercase;">Premium Digital Solutions</span>
+                    </div>
+                </div>
+
+                <p style="color:#94a3b8; text-align:justify; margin-bottom:20px; font-size:0.85rem;">
+                    Platform infrastruktur digital terdepan yang didedikasikan untuk Developer & Pebisnis Online. Kami menyediakan layanan <b>Cloud Hosting Pterodactyl</b> dengan performa tinggi, keamanan Anti-DDoS, serta koleksi <b>Script Bot WhatsApp</b> tercanggih untuk automasi bisnis Anda.
+                </p>
+
+                <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+                    <div style="background:rgba(16, 185, 129, 0.1); border:1px solid rgba(16, 185, 129, 0.2); padding:5px 10px; border-radius:6px; display:inline-flex; align-items:center; gap:8px;">
+                        <span style="position:relative; display:flex; h-2; w-2;">
+                            <span style="animation:ping 1.5s infinite; position:absolute; display:inline-flex; height:100%; width:100%; border-radius:50%; background-color:#10b981; opacity:0.75;"></span>
+                            <span style="position:relative; display:inline-flex; height:8px; width:8px; border-radius:50%; background-color:#10b981;"></span>
+                        </span>
+                        <span style="color:#10b981; font-weight:bold; font-size:0.75rem;">Server Online 100%</span>
+                    </div>
+
+                    <div class="social-links" style="display:flex; gap:8px;">
+                        <a href="https://wa.me/6282312934025" style="width:32px; height:32px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; border-radius:50%; color:#fff; border:1px solid rgba(255,255,255,0.1); transition:0.3s;" onmouseover="this.style.background='#25D366'" onmouseout="this.style.background='rgba(255,255,255,0.05)'"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://t.me/amaneofc" style="width:32px; height:32px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; border-radius:50%; color:#fff; border:1px solid rgba(255,255,255,0.1); transition:0.3s;" onmouseover="this.style.background='#0088cc'" onmouseout="this.style.background='rgba(255,255,255,0.05)'"><i class="fab fa-telegram-plane"></i></a>
+                        <a href="amane@gmail.com" style="width:32px; height:32px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; border-radius:50%; color:#fff; border:1px solid rgba(255,255,255,0.1); transition:0.3s;" onmouseover="this.style.background='#ea580c'" onmouseout="this.style.background='rgba(255,255,255,0.05)'"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3 style="color:#fff; font-size:1rem; margin-bottom:20px; font-weight:700; border-bottom:2px solid var(--primary); display:inline-block; padding-bottom:5px;">Akses Member Area</h3>
+                <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:12px;">
+                    <li onclick="checkAuthAction(showDataPanel)" style="cursor:pointer; display:flex; gap:12px; align-items:flex-start; group">
+                        <i class="fas fa-server" style="color:#3b82f6; margin-top:4px;"></i>
+                        <div>
+                            <span style="display:block; color:#e2e8f0; font-weight:600; font-size:0.9rem; transition:0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#e2e8f0'">Management Console Panel</span>
+                            <small style="color:#64748b; font-size:0.75rem; display:block; margin-top:2px;">Akses penuh ke kontrol server & database.</small>
+                        </div>
+                    </li>
+                    <li onclick="checkAuthAction(showDataSubdomain)" style="cursor:pointer; display:flex; gap:12px; align-items:flex-start;">
+                        <i class="fas fa-globe" style="color:#8b5cf6; margin-top:4px;"></i>
+                        <div>
+                            <span style="display:block; color:#e2e8f0; font-weight:600; font-size:0.9rem; transition:0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#e2e8f0'">Konfigurasi Subdomain</span>
+                            <small style="color:#64748b; font-size:0.75rem; display:block; margin-top:2px;">Kelola IP pointing dan DNS otomatis.</small>
+                        </div>
+                    </li>
+                    <li onclick="checkAuthAction(showDataScript)" style="cursor:pointer; display:flex; gap:12px; align-items:flex-start;">
+                        <i class="fas fa-file-code" style="color:#f59e0b; margin-top:4px;"></i>
+                        <div>
+                            <span style="display:block; color:#e2e8f0; font-weight:600; font-size:0.9rem; transition:0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#e2e8f0'">Library Script Premium</span>
+                            <small style="color:#64748b; font-size:0.75rem; display:block; margin-top:2px;">Download source code bot terupdate.</small>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3 style="color:#fff; font-size:1rem; margin-bottom:20px; font-weight:700; border-bottom:2px solid var(--primary); display:inline-block; padding-bottom:5px;">Layanan & Order</h3>
+                <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:12px;">
+                    <li onclick="switchCategory('panel', null)" style="cursor:pointer; display:flex; gap:12px; align-items:flex-start;">
+                        <i class="fas fa-hdd" style="color:#10b981; margin-top:4px;"></i>
+                        <div>
+                            <span style="display:block; color:#e2e8f0; font-weight:600; font-size:0.9rem; transition:0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#e2e8f0'">Pterodactyl Cloud Hosting</span>
+                            <small style="color:#64748b; font-size:0.75rem; display:block; margin-top:2px;">Server stabil, Anti-DDoS & High Speed.</small>
+                        </div>
+                    </li>
+                    <li onclick="switchCategory('subdomain', null)" style="cursor:pointer; display:flex; gap:12px; align-items:flex-start;">
+                        <i class="fas fa-network-wired" style="color:#ec4899; margin-top:4px;"></i>
+                        <div>
+                            <span style="display:block; color:#e2e8f0; font-weight:600; font-size:0.9rem; transition:0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#e2e8f0'">Top Level Domain & Sub</span>
+                            <small style="color:#64748b; font-size:0.75rem; display:block; margin-top:2px;">Custom alamat website/bot via Cloudflare.</small>
+                        </div>
+                    </li>
+                    <li onclick="switchCategory('course', null)" style="cursor:pointer; display:flex; gap:12px; align-items:flex-start;">
+                        <i class="fas fa-chalkboard-teacher" style="color:#f59e0b; margin-top:4px;"></i>
+                        <div>
+                            <span style="display:block; color:#e2e8f0; font-weight:600; font-size:0.9rem; transition:0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#e2e8f0'">Jasa Coding & Course</span>
+                            <small style="color:#64748b; font-size:0.75rem; display:block; margin-top:2px;">Belajar programming dari dasar hingga mahir.</small>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-section" style="border-top:1px solid rgba(255,255,255,0.05); padding-top:25px; display:flex; flex-direction:column; align-items:center; gap:15px;">
+            
+            <span style="color:#64748b; font-size:0.75rem; letter-spacing:1px; text-transform:uppercase;">Official Payment Partners</span>
+
+            <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; opacity:0.9;">
+                <div style="background:#fff; padding:4px 10px; border-radius:4px; height:28px; display:flex; align-items:center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Logo_QRIS.svg/1200px-Logo_QRIS.svg.png" style="height:18px;"></div>
+                <div style="background:#fff; padding:4px 10px; border-radius:4px; height:28px; display:flex; align-items:center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/2560px-Bank_Central_Asia.svg.png" style="height:12px;"></div>
+                <div style="background:#fff; padding:4px 10px; border-radius:4px; height:28px; display:flex; align-items:center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/BANK_BRI_logo.svg/2560px-BANK_BRI_logo.svg.png" style="height:16px;"></div>
+                <div style="background:#fff; padding:4px 10px; border-radius:4px; height:28px; display:flex; align-items:center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Bank_Mandiri_logo_2016.svg/2560px-Bank_Mandiri_logo_2016.svg.png" style="height:12px;"></div>
+                <div style="background:#fff; padding:4px 10px; border-radius:4px; height:28px; display:flex; align-items:center; gap:8px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/2560px-Logo_dana_blue.svg.png" style="height:10px;">
+                    <span style="color:#ccc; font-size:10px;">|</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/2560px-Logo_ovo_purple.svg.png" style="height:10px;">
+                    <span style="color:#ccc; font-size:10px;">|</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gopay_logo.svg/2560px-Gopay_logo.svg.png" style="height:10px;">
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:10px;">
+                <p style="margin:0; font-size:0.85rem; color:#94a3b8;">&copy; 2024-2025 <b>AmaneShop</b>. Hak Cipta Dilindungi Undang-Undang.</p>
+                <p style="margin:5px 0 0 0; font-size:0.75rem; color:#475569;">
+                    Dikembangkan dengan <i class="fas fa-heart" style="color:#ec4899; font-size:0.7rem;"></i> untuk Komunitas Developer Indonesia.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    </div>
+
+    <div id="payment-view">
+        <div class="pay-card">
+            <h2 style="color:var(--primary)">SCAN QRIS</h2>
+            <div id="qrcode" onclick="zoomQR()"></div>
+            <p style="color:var(--text-muted); margin-top:5px;">Klik QR untuk Zoom</p>
+            <div class="timer-box" id="timer">05:00</div>
+            <div id="payment-details"></div>
+            <button onclick="cancelTransaction()" style="background:#dc2626; color:white; border:none; padding:15px; border-radius:50px; width:100%; cursor:pointer; font-weight:bold; margin-top:20px;">
+                <i class="fas fa-times"></i> BATALKAN TRANSAKSI
+            </button>
+        </div>
+    </div>
+    
+        <div id="history-view" style="display:none; background:var(--bg-body); min-height:100vh; padding-bottom:80px; position:relative; z-index:105;">
+    
+    <div class="history-header" style="position:sticky; top:0; z-index:99; background:var(--bg-card); border-bottom:1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <div style="padding: 15px; display: flex; align-items: center; gap: 15px;">
+            <i class="fas fa-arrow-left" onclick="switchView('app')" style="font-size:1.2rem; cursor:pointer; color:var(--text-main);"></i>
+            <h3 style="margin:0; font-size:1.1rem; color:var(--text-main);">Riwayat Transaksi</h3>
+        </div>
+        
+        <div class="history-tabs">
+            <div class="h-tab active" onclick="filterHistory('all', this)">Semua</div>
+            <div class="h-tab" onclick="filterHistory('success', this)">Sukses</div>
+            <div class="h-tab" onclick="filterHistory('pending', this)">Pending</div>
+            <div class="h-tab" onclick="filterHistory('canceled', this)">Batal</div>
+        </div>
+    </div>
+
+    <div id="history-list-container" style="padding: 10px;">
+        </div>
+</div>
+
+    <div id="rekap-view" style="display:none; background:var(--bg-body); min-height:100vh; padding-bottom:90px;">
+        <div class="history-header" style="background:var(--primary); padding:20px; border-bottom-left-radius:20px; border-bottom-right-radius:20px; color:white; text-align:center;">
+            <h3 style="margin:0;">Rekap Keuangan</h3>
+            <p style="margin:5px 0 0 0; opacity:0.9; font-size:0.9rem;">Statistik Akun Anda</p>
+        </div>
+        
+        <div style="padding:15px; margin-top:-30px;">
+            <div style="background:var(--bg-card); padding:20px; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,0.1); text-align:center; border:1px solid var(--border);">
+                <small style="color:var(--text-muted);">Total Pengeluaran (Sukses)</small>
+                <h1 id="rekap-total" style="color:var(--primary); margin:10px 0;">Rp 0</h1>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; margin-top:20px; border-top:1px solid var(--border); padding-top:15px;">
+                    <div><b id="rekap-sukses" style="color:#10b981; font-size:1.2rem;">0</b><br><small style="font-size:0.7rem;">Sukses</small></div>
+                    <div><b id="rekap-pending" style="color:#f59e0b; font-size:1.2rem;">0</b><br><small style="font-size:0.7rem;">Proses</small></div>
+                    <div><b id="rekap-gagal" style="color:#ef4444; font-size:1.2rem;">0</b><br><small style="font-size:0.7rem;">Gagal</small></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="rekap-chart-area" style="padding:15px;">
+            <h4 style="margin-bottom:10px; color:var(--text-main);">Catatan:</h4>
+            <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6;">
+                Data ini dihitung berdasarkan riwayat transaksi akun Anda (<b><span id="rekap-username">-</span></b>). <br>Hanya transaksi berstatus <b>SUKSES</b> yang dihitung dalam total pengeluaran.
+            </p>
+        </div>
+    </div>
+
+    <div id="info-view" style="display:none; background:var(--bg-body); min-height:100vh; padding-bottom:90px;">
+        <div class="history-header" style="position:sticky; top:0; z-index:99; background:var(--bg-card); border-bottom:1px solid var(--border); padding:15px; text-align:center;">
+            <h3 style="margin:0; font-size:1.1rem;">Pusat Informasi</h3>
+        </div>
+        <div id="full-info-list" style="padding:15px; display:flex; flex-direction:column; gap:10px;">
+            </div>
+    </div>
+    
+        <div id="bottom-nav" class="bottom-nav">
+        <div class="nav-item active" onclick="switchView('app')">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </div>
+        <div class="nav-item" onclick="openHistory()">
+            <i class="fas fa-file-invoice"></i> <span>Transaksi</span>
+        </div>
+        <div class="nav-item" onclick="openRekap()">
+            <i class="fas fa-chart-pie"></i>
+            <span>Rekap</span>
+        </div>
+        <div class="nav-item" onclick="openFullInfo()">
+            <i class="fas fa-newspaper"></i>
+            <span>Informasi</span>
+        </div>
+        <div class="nav-item" onclick="openProfileView()">
+            <i class="fas fa-user"></i>
+            <span>Akun</span>
+        </div>
+    </div>
+    
+    <div class="help-container">
+    <div class="help-menu" id="help-menu">
+        <a href="https://whatsapp.com/channel/0029VbBsfKuHAdNc1ifX1e0M" target="_blank" class="help-item">
+            <div class="help-icon" style="background: #3b82f6;">
+                <i class="fas fa-bullhorn"></i>
+            </div>
+            <div class="help-text">
+                <b>Channel Whatsapp</b>
+                <span>Bisa cek information</span>
+            </div>
+        </a>
+        
+        <a href="https://www.instagram.com/muhammadrizkirajditia?igsh=NmNtMnY0cThwejZy" target="_blank" class="help-item">
+            <div class="help-icon" style="background: #ff00ff;">
+                <i class="fab fa-instagram"></i>
+            </div>
+            <div class="help-text">
+                <b>Instagram</b>
+                <span>Sosial Media</span>
+            </div>
+        </a>
+    </div>
+
+    <button class="help-btn" onclick="toggleHelp()">
+        <i class="fas fa-headset" id="help-icon-main"></i>
+    </button>
+</div>
+
+<div id="crop-modal">
+    <div class="crop-container">
+        <div class="crop-body">
+            <img id="image-to-crop" src="">
+        </div>
+        <div class="crop-footer">
+            <button onclick="closeCrop()" style="background:red; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Batal</button>
+            <button onclick="saveCrop()" style="background:green; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer;">Potong & Pakai</button>
+        </div>
+    </div>
+</div>
+
+<div id="modal-confirm-order" class="modal-overlay">
+    <div class="modal-box" style="max-width: 400px;">
+        <span class="close-modal" onclick="closeModal('modal-confirm-order')">&times;</span>
+        <h3 style="color:var(--primary); text-align:center; margin-bottom:5px;">Konfirmasi Pesanan</h3>
+        
+        <table class="confirm-table">
+            <tr><td>Tanggal</td><td id="conf-date">-</td></tr>
+            <tr><td>Kategori</td><td id="conf-cat">-</td></tr>
+            <tr><td>Produk</td><td id="conf-product">-</td></tr>
+            <tr><td>Info</td><td id="conf-data-val">-</td></tr>
+        </table>
+
+        <div style="background:rgba(255,255,255,0.03); padding:10px; border-radius:8px; border:1px dashed var(--border); margin-top:10px;">
+            <label style="font-size:0.75rem; color:var(--text-muted); display:block; margin-bottom:5px;">Kode Promo (Opsional)</label>
+            <div style="display:flex; gap:5px;">
+                <input type="text" id="popup-promo-code" class="form-input" placeholder="Masukan Kode" style="margin:0; height:38px; font-size:0.9rem; text-transform:uppercase; padding:5px 10px;">
+                <button id="btn-popup-check" onclick="checkPromoInPopup()" class="btn-submit" style="margin:0; width:80px; height:38px; padding:0; font-size:0.8rem; border-radius:8px;">Gunakan</button>
+            </div>
+            <small id="popup-promo-msg" style="display:none; margin-top:5px; font-size:0.75rem;"></small>
+        </div>
+
+        <div class="confirm-total-box" style="margin-top:15px;">
+            <span class="confirm-total-label">Total Bayar</span>
+            <div style="text-align:right;">
+                <div id="conf-total-strike" style="text-decoration: line-through; color: var(--text-muted); font-size: 0.85rem; display: none;">Rp 0</div>
+                <span class="confirm-total-val" id="conf-total">Rp 0</span>
+            </div>
+        </div>
+
+        <div style="margin-top:20px; display:flex; gap:10px;">
+            <button onclick="closeModal('modal-confirm-order')" class="btn-submit" style="background:var(--bg-body); border:1px solid var(--border); color:var(--text-muted); margin-top:0;">Batal</button>
+            <button id="btn-final-pay" onclick="processTransaction()" class="btn-submit" style="margin-top:0;">LANJUT BAYAR <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+</div>
+
+<div id="modal-dataapps" class="modal-overlay">
+    <div class="modal-box">
+        <span class="close-modal" onclick="closeModal('modal-dataapps')">&times;</span>
+        <h3 style="color:var(--primary); text-align:center;">Akun Premium Saya</h3>
+        <div id="list-apps" style="margin-top:15px;">Loading...</div>
+    </div>
+</div>
+
+    <script src="script.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            // Logika Banner Slider
+            let slideIndex = 0;
+            const slides = document.querySelectorAll('.banner-slide');
+            const wrapper = document.getElementById('banner-wrapper');
+            if (wrapper && slides.length > 0) {
+                setInterval(() => {
+                    slideIndex++;
+                    if(slideIndex >= slides.length) slideIndex = 0;
+                    wrapper.style.transform = `translateX(-${slideIndex * 100}%)`;
+                }, 3000); 
+            }
+        });
+        document.addEventListener('contextmenu', event => { event.preventDefault(); });
+    </script>
+</body>
+</html>

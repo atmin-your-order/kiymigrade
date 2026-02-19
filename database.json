@@ -1,0 +1,583 @@
+{
+  "transactions": 3,
+  "history": [
+    {
+      "transaction_id": "INV1771334806970",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME5204792953033605406500.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181040792406502859556304DF9D",
+      "amount": 500,
+      "username": "riky",
+      "phone": "6282312934025",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-17T13:26:47.855Z",
+      "status": "success",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771334356761",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054072000.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181477392717264536046304F6C5",
+      "amount": 2000,
+      "username": "riky",
+      "phone": "6282312934025",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-17T13:19:17.665Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771334296035",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054072000.005802ID5907Pakasir6012KAB. KEBUMEN6105543926222051815890331968347090863048FD0",
+      "amount": 2000,
+      "username": "riky",
+      "phone": "6282312934025",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-17T13:18:16.939Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771334111687",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054072324.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181154227379940737586304B043",
+      "amount": 2324,
+      "username": "riky",
+      "phone": "6282312934025",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-17T13:15:12.622Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771332092547",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME520479295303360540822400.005802ID5907Pakasir6012KAB. KEBUMEN6105543926222051813125870538840776463047A2C",
+      "amount": 22400,
+      "username": "arexans",
+      "phone": "6289518030035",
+      "item": "SC AUTO ORDER ALL NOTIFIKASI TESTIMONI LENGKAP",
+      "productId": 911,
+      "time": "2026-02-17T12:41:33.464Z",
+      "status": "pending",
+      "fee": 0,
+      "category": "script",
+      "note": "Promo: RAMADHAN2026 (-20%)"
+    },
+    {
+      "transaction_id": "INV1771330953185",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054072000.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181686070109369101246304671B",
+      "amount": 2000,
+      "username": "riky",
+      "phone": "6282312934025",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-17T12:22:34.086Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771330803487",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054072324.005802ID5907Pakasir6012KAB. KEBUMEN61055439262220518143618146462361327630466E7",
+      "amount": 2324,
+      "username": "riky",
+      "phone": "6282312934025",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-17T12:20:04.338Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771320755143",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054072828.005802ID5907Pakasir6012KAB. KEBUMEN6105543926222051815386478031825706363040E81",
+      "amount": 2828,
+      "username": "reqnz",
+      "phone": "6285780111993",
+      "item": "VPS UPCLOUD RAM 1GB CORE 1",
+      "productId": 501,
+      "time": "2026-02-17T09:32:35.708Z",
+      "status": "pending",
+      "fee": 0,
+      "category": "vps",
+      "note": "Promo: 30DESEMBER (-50%)"
+    },
+    {
+      "transaction_id": "INV1771320697309",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054072828.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181070821917072257876304DFD8",
+      "amount": 2828,
+      "username": "reqnz",
+      "phone": "6285780111993",
+      "item": "VPS UPCLOUD RAM 1GB CORE 1",
+      "productId": 501,
+      "time": "2026-02-17T09:31:38.181Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "vps",
+      "note": "Promo: 30DESEMBER (-50%)"
+    },
+    {
+      "transaction_id": "INV1771320342236",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054074338.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181703344587548917036304AA2D",
+      "amount": 4338,
+      "username": "reqnz",
+      "phone": "6285780111993",
+      "item": "VPS UPCLOUD RAM 1GB CORE 1",
+      "productId": 501,
+      "time": "2026-02-17T09:25:42.847Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "vps",
+      "note": "Promo: RAMADHAN2026 (-20%)"
+    },
+    {
+      "transaction_id": "INV1771298548823",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME520479295303360540810380.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181661580753595616506304CFF4",
+      "amount": 10380,
+      "username": "amane",
+      "phone": "6285701911022",
+      "item": "SC CVPS X INSTALL PANEL TELE",
+      "productId": 907,
+      "time": "2026-02-17T03:22:29.682Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "script",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771235215256",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME520479295303360540810000.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181204622108626119676304705D",
+      "amount": 10000,
+      "username": "alwaysriky",
+      "phone": "6282312934025",
+      "item": "SC CVPS X INSTALL PANEL TELE",
+      "productId": 907,
+      "time": "2026-02-16T09:46:56.136Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "script",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771234725118",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME520479295303360540810000.005802ID5907Pakasir6012KAB. KEBUMEN6105543926222051810400706408327724163047A8F",
+      "amount": 10000,
+      "username": "alwaysriky",
+      "phone": "6282312934025",
+      "item": "SC CVPS X INSTALL PANEL TELE",
+      "productId": 907,
+      "time": "2026-02-16T09:38:46.013Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "script",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771216318058",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054072324.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181405925650915331296304170B",
+      "amount": 2324,
+      "username": "amanecut",
+      "phone": "6285748363750",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-16T04:31:58.892Z",
+      "status": "pending",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771215971599",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054073180.005802ID5907Pakasir6012KAB. KEBUMEN61055439262220518134724001547406923630433CA",
+      "amount": 3180,
+      "username": "amanecuy",
+      "phone": "6285748363750",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-16T04:26:12.453Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": "Promo: AMANEOFC (-5%)"
+    },
+    {
+      "transaction_id": "INV1771215349852",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054073331.005802ID5907Pakasir6012KAB. KEBUMEN6105543926222051816006174743138452763044860",
+      "amount": 3331,
+      "username": "alwaysrikyshop",
+      "phone": "6282312934025",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-16T04:15:50.684Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771213006798",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054073180.005802ID5907Pakasir6012KAB. KEBUMEN6105543926222051816152673894643554163045C15",
+      "amount": 3180,
+      "username": "amaneofc",
+      "phone": "6285748363750",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-16T03:36:47.918Z",
+      "status": "pending",
+      "fee": 0,
+      "category": "panel",
+      "note": "Promo: AMANEOFC (-5%)"
+    },
+    {
+      "transaction_id": "INV1771212591088",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054075345.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181462900350799558386304762E",
+      "amount": 5345,
+      "username": "neroo",
+      "phone": "6285768343760",
+      "item": "PANEL 3GB",
+      "productId": 3,
+      "time": "2026-02-16T03:29:51.962Z",
+      "status": "pending",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771154111808",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME520479295303360540815415.005802ID5907Pakasir6012KAB. KEBUMEN6105543926222051817085758789261045363043495",
+      "amount": 15415,
+      "username": "amane",
+      "phone": "6285748363750",
+      "item": "PANEL UNLIMITED",
+      "productId": 9,
+      "time": "2026-02-15T11:15:12.673Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1771149152197",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME520479295303360540814660.005802ID5907Pakasir6012KAB. KEBUMEN6105543926222051814818779756674695663048EF0",
+      "amount": 14660,
+      "username": "geloo",
+      "phone": "6285748363750",
+      "item": "PANEL UNLIMITED",
+      "productId": 9,
+      "time": "2026-02-15T09:52:33.031Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": "Promo: AMANEOFC (-5%)"
+    },
+    {
+      "transaction_id": "INV1771143650455",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054073331.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181047333593859783896304E760",
+      "amount": 3331,
+      "username": "nezumi",
+      "phone": "6285748363750",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-02-15T08:20:51.338Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1768214824122",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME520479295303360540815000.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181717320567899385256304052D",
+      "amount": 15000,
+      "username": "rayzz",
+      "phone": "6285789112826",
+      "item": "PANEL UNLIMITED",
+      "productId": 9,
+      "time": "2026-01-12T10:47:04.854Z",
+      "status": "success",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1768146911023",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054074500.005802ID5907Pakasir6012KAB. KEBUMEN61055439262220518154030868380811044630437FF",
+      "amount": 4500,
+      "username": "pian",
+      "phone": "6283120589335",
+      "item": "PANEL 3GB",
+      "productId": 3,
+      "time": "2026-01-11T15:55:11.509Z",
+      "status": "success",
+      "fee": 0,
+      "category": "panel",
+      "note": "Promo: ALWAYSRIKYSHOP (-10%)"
+    },
+    {
+      "transaction_id": "INV1768145995476",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054072700.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181216468551074404956304BA98",
+      "amount": 2700,
+      "username": "riky",
+      "phone": "628234315184",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-01-11T15:39:56.267Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": "Promo: ALWAYSRIKYSHOP (-10%)"
+    },
+    {
+      "transaction_id": "INV1768145467744",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054073331.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181372483901731143406304E1AA",
+      "amount": 3331,
+      "username": "riky",
+      "phone": "628234315184",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-01-11T15:31:08.248Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1768144093502",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054075345.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181598336995504083916304D69B",
+      "amount": 5345,
+      "username": "piann",
+      "phone": "6283120589335",
+      "item": "MURID LOGO BAHAN",
+      "productId": 42,
+      "time": "2026-01-11T15:08:14.301Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "course",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1768143320319",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054073331.005802ID5907Pakasir6012KAB. KEBUMEN6105543926222051810202895790759951763045800",
+      "amount": 3331,
+      "username": "jjjjnjj",
+      "phone": "6285819066475",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-01-11T14:55:21.338Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1768143146719",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054073331.005802ID5907Pakasir6012KAB. KEBUMEN61055439262220518113615705744101408630482EB",
+      "amount": 3331,
+      "username": "huguhb",
+      "phone": "6285819066475",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-01-11T14:52:27.460Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": ""
+    },
+    {
+      "transaction_id": "INV1768142346628",
+      "qr_string": "00020101021226610016ID.CO.SHOPEE.WWW01189360091800216005230208216005230303UME51440014ID.CO.QRIS.WWW0215ID10243228429300303UME52047929530336054073029.005802ID5907Pakasir6012KAB. KEBUMEN610554392622205181100511828087933166304D1AE",
+      "amount": 3029,
+      "username": "felys",
+      "phone": "6282312934025",
+      "item": "PANEL 1GB",
+      "productId": 1,
+      "time": "2026-01-11T14:39:07.474Z",
+      "status": "canceled",
+      "fee": 0,
+      "category": "panel",
+      "note": "Promo: ALWAYSRIKYSHOP (-10%)"
+    }
+  ],
+  "purchased_scripts": [],
+  "notifications": [
+    {
+      "title": "Pembelian Baru",
+      "msg": "riky membeli PANEL 1GB",
+      "time": "2026-02-17T13:27:41.807Z"
+    },
+    {
+      "title": "🔄 UPDATE PRODUK",
+      "msg": "Produk PANEL 1GB telah diperbarui (Harga/Spek). Cek sekarang!",
+      "time": "2026-02-17T13:22:19.729Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *VPS DIGITAL OCEAN R16*\n💰 *Harga:* Rp 15.000\n🎓 *Benefit:* Setup Manual via Chat Owner\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-16T13:40:15.475Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *VPS DIGITAL OCEAN R8*\n💰 *Harga:* Rp 10.000\n🎓 *Benefit:* Setup Manual via Chat Owner\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-16T13:39:59.539Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *VPS DIGITAL OCEAN R4 *\n💰 *Harga:* Rp 8.000\n🎓 *Benefit:* Setup Manual via Chat Owner\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-16T13:39:47.142Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *VPS DIGITAL OCEAN R2*\n💰 *Harga:* Rp 5.000\n🎓 *Benefit:* Setup Manual via Chat Owner\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-16T13:39:25.415Z"
+    },
+    {
+      "title": "🔄 UPDATE PRODUK",
+      "msg": "Produk PANEL 4GB telah diperbarui (Harga/Spek). Cek sekarang!",
+      "time": "2026-02-16T04:29:30.885Z"
+    },
+    {
+      "title": "🔄 UPDATE PRODUK",
+      "msg": "Produk PANEL 3GB telah diperbarui (Harga/Spek). Cek sekarang!",
+      "time": "2026-02-16T04:29:16.725Z"
+    },
+    {
+      "title": "🔄 UPDATE PRODUK",
+      "msg": "Produk PANEL 4GB telah diperbarui (Harga/Spek). Cek sekarang!",
+      "time": "2026-02-16T04:28:21.691Z"
+    },
+    {
+      "title": "🔄 UPDATE PRODUK",
+      "msg": "Produk PANEL 3GB telah diperbarui (Harga/Spek). Cek sekarang!",
+      "time": "2026-02-16T04:28:03.912Z"
+    },
+    {
+      "title": "🔄 UPDATE PRODUK",
+      "msg": "Produk PANEL 3GB telah diperbarui (Harga/Spek). Cek sekarang!",
+      "time": "2026-02-16T04:27:51.481Z"
+    },
+    {
+      "title": "🔄 UPDATE PRODUK",
+      "msg": "Produk PANEL 2GB telah diperbarui (Harga/Spek). Cek sekarang!",
+      "time": "2026-02-16T04:27:38.752Z"
+    },
+    {
+      "title": "🔄 UPDATE PRODUK",
+      "msg": "Produk PANEL 1GB telah diperbarui (Harga/Spek). Cek sekarang!",
+      "time": "2026-02-16T04:27:30.627Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *SC USERBOT TELEGRAM*\n💰 *Harga:* Rp 20.000\n⚡ *Fitur:* Script Premium & Verified\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-15T16:08:31.039Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *SC AUTO ORDER AMANE OFC *\n💰 *Harga:* Rp 35.000\n⚡ *Fitur:* Script Premium & Verified\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-15T16:07:13.501Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *SC AUTO ORDER ALL NOTIFIKASI TESTIMONI LENGKAP*\n💰 *Harga:* Rp 28.000\n⚡ *Fitur:* Script Premium & Verified\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-15T16:04:13.356Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *SC RALLZ AUTO ORDER V8*\n💰 *Harga:* Rp 25.000\n⚡ *Fitur:* Script Premium & Verified\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-15T16:01:46.659Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *SC BUG JUSTIN NEW V26*\n💰 *Harga:* Rp 35.000\n⚡ *Fitur:* Script Premium & Verified\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-15T16:00:30.914Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *SC AUTO ORDER NOKOS SUPPORT 180 NEGARA*\n💰 *Harga:* Rp 50.000\n⚡ *Fitur:* Script Premium & Verified\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-15T15:58:47.595Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "✨ *NEW PRODUCT UPDATE*\n\n📦 *SC CVPS X INSTALL PANEL TELE*\n💰 *Harga:* Rp 10.000\n⚡ *Fitur:* Script Premium & Verified\n\n🛒 _Order otomatis di website!_",
+      "time": "2026-02-15T15:54:20.495Z"
+    },
+    {
+      "title": "📢 INFO ADMIN",
+      "msg": "Selamat datang diwebsite Amane Ofc",
+      "time": "2026-02-15T11:08:57.238Z"
+    }
+  ],
+  "my_scripts": [],
+  "visitor_ips": [],
+  "my_courses": [],
+  "site_info": {},
+  "reviews": [
+    {
+      "id": 1771148493542,
+      "username": "amane",
+      "productId": 9,
+      "rating": 5,
+      "comment": "Keren bangg",
+      "userPic": "images/logo.jpg",
+      "date": "2026-02-15T09:41:33.542Z",
+      "replies": [],
+      "reactions": {
+        "love": [],
+        "like": [],
+        "dislike": []
+      }
+    },
+    {
+      "id": 1768147158392,
+      "username": "hhh",
+      "productId": 1,
+      "rating": 5,
+      "comment": "Halo bang anjay website nya keren",
+      "userPic": "images/logo.jpg",
+      "date": "2026-01-11T15:59:18.392Z",
+      "replies": [],
+      "reactions": {
+        "love": [],
+        "like": [],
+        "dislike": []
+      }
+    }
+  ],
+  "promo_codes": [
+    {
+      "id": 1771317804118,
+      "code": "30DESEMBER",
+      "discount": 50,
+      "limit": 5,
+      "used": 2,
+      "expired_at": "2026-02-19",
+      "valid_category": "all",
+      "valid_product_id": null,
+      "created_at": "2026-02-17T08:43:24.118Z"
+    },
+    {
+      "id": 1771317839860,
+      "code": "RAMADHAN2026",
+      "discount": 20,
+      "limit": 10,
+      "used": 2,
+      "expired_at": "2026-02-19",
+      "valid_category": "all",
+      "valid_product_id": null,
+      "created_at": "2026-02-17T08:43:59.860Z"
+    }
+  ],
+  "vps_stock": [],
+  "my_vps": [],
+  "app_stock": [],
+  "my_apps": []
+}

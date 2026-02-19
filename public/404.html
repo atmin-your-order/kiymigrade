@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">   
+    <title>404 - Hayo Mau Ngapain?</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #0f172a;
+            --primary: #f43f5e; /* Merah untuk alert/ngeledek */
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            user-select: none; /* Biar teks gak bisa dicopy */
+        }
+
+        /* Animasi Icon Melayang */
+        .icon-container {
+            font-size: 8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(244, 63, 94, 0.5);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 10px 0 20px 0;
+            color: #fbbf24; /* Warna kuning */
+            text-transform: uppercase;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        .btn-home {
+            background: var(--text-main);
+            color: var(--bg-body);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-home:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Hiasan Background biar estetik */
+        .bg-blur {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            filter: blur(150px);
+            opacity: 0.1;
+            z-index: -1;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blur"></div>
+
+    <div class="icon-container">
+        <i class="fas fa-user-secret"></i>
+    </div>
+
+    <h1>404</h1>
+    <h2>Cieee... Nyari File Rahasia Ya? 🤣</h2>
+
+    <p>
+        Hayo ngaku! Pasti lagi nyoba akses <code>Code</code> <code>Website</code> kan? <br>
+        Maaf bang, sistem AmaneShop udah <b>Anti-Maling</b>. <br>
+        Mending beli script/panel yang resmi aja daripada capek ngintip script orang.
+    </p>
+
+    <a href="/" class="btn-home">
+        <i class="fas fa-arrow-left"></i> KEMBALI KE JALAN YANG BENAR
+    </a>
+
+</body>
+</html>

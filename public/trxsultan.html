@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Top Sultan - AmaneShop</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #118eea;
+            --dark-blue: #0b63a5;
+            --gold: #fbbf24;
+            --bg-soft: #f8fafc;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+
+        body {
+            background: var(--bg-soft);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- HEADER MEWAH --- */
+        .header-sultan {
+            width: 100%;
+            background: linear-gradient(135deg, #118eea 0%, #06b6d4 100%);
+            padding: 40px 20px 60px 20px;
+            text-align: center;
+            color: white;
+            border-bottom-left-radius: 35px;
+            border-bottom-right-radius: 35px;
+            box-shadow: 0 10px 30px rgba(17, 142, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hiasan Background */
+        .header-sultan::before {
+            content: '';
+            position: absolute;
+            top: -50px; left: -50px;
+            width: 150px; height: 150px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+        .header-sultan::after {
+            content: '';
+            position: absolute;
+            bottom: -30px; right: -30px;
+            width: 100px; height: 100px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .header-content { position: relative; z-index: 2; }
+        
+        .crown-icon {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.6));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .header-title { font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; margin-bottom: 5px; }
+        .header-desc { font-size: 0.85rem; opacity: 0.9; font-weight: 400; }
+
+        /* --- LIST CONTAINER --- */
+        .list-wrapper {
+            width: 100%;
+            max-width: 500px;
+            padding: 0 20px;
+            margin-top: -40px; /* Overlap ke atas */
+            padding-bottom: 40px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* --- KARTU USER --- */
+        .sultan-card {
+            background: white;
+            border-radius: 16px;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sultan-card:active { transform: scale(0.98); }
+
+        /* --- PERINGKAT & AVATAR --- */
+        .rank-badge {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #94a3b8;
+            width: 30px;
+            text-align: center;
+        }
+
+        .avatar-box {
+            position: relative;
+            width: 55px;
+            height: 55px;
+        }
+
+        .user-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #f1f5f9; /* Border Default */
+            background: #f1f5f9;
+        }
+
+        /* Style Khusus Juara 1, 2, 3 */
+        .rank-1 { background: linear-gradient(to right, #fff, #fffbeb); border: 2px solid #fbbf24; }
+        .rank-1 .rank-badge { display: none; } /* Sembunyikan angka, ganti piala */
+        .rank-1 .user-avatar { border-color: #fbbf24; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.3); }
+
+        .rank-2 { border: 1px solid #94a3b8; }
+        .rank-2 .user-avatar { border-color: #cbd5e1; }
+
+        .rank-3 { border: 1px solid #b45309; }
+        .rank-3 .user-avatar { border-color: #d6d3d1; }
+
+        .trophy-icon {
+            position: absolute;
+            top: -8px; 
+            right: -8px;
+            font-size: 1.2rem;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+            z-index: 2;
+        }
+
+        /* --- INFO USER --- */
+        .user-info { flex: 1; min-width: 0; }
+        
+        .user-name {
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 0.95rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .verified-check {
+            color: #118eea; 
+            font-size: 0.85rem;
+            margin-left: 2px;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 10px;
+            margin-top: 4px;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .stat-pill {
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .total-nominal {
+            font-weight: 800;
+            color: #118eea;
+            font-size: 0.9rem;
+            text-align: right;
+            min-width: 80px;
+        }
+
+        /* Tombol Balik */
+        .back-btn {
+            position: absolute;
+            top: 20px; left: 20px;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(5px);
+            border: none;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+        .back-btn:active { transform: scale(0.9); background: rgba(255,255,255,0.4); }
+
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Loader */
+        .loader-box { text-align: center; color: #64748b; margin-top: 50px; }
+        .spinner {
+            width: 40px; height: 40px; border: 4px solid #e2e8f0;
+            border-top: 4px solid #118eea; border-radius: 50%;
+            animation: spin 1s linear infinite; margin: 0 auto 10px auto;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <button class="back-btn" onclick="window.location.href='/'">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="header-sultan">
+        <div class="header-content">
+            <div class="crown-icon">👑</div>
+            <div class="header-title">TOP SULTAN</div>
+            <div class="header-desc">Leaderboard Transaksi Terbanyak</div>
+            <div class="header-desc" style="font-size: 0.7rem; margin-top: 5px; background: rgba(255,255,255,0.2); display: inline-block; padding: 2px 10px; border-radius: 20px;">
+                Reset Otomatis / 30 Hari
+            </div>
+        </div>
+    </div>
+
+    <div class="list-wrapper" id="list-container">
+        <div class="loader-box">
+            <div class="spinner"></div>
+            <p>Memuat data sultan...</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('list-container');
+
+            try {
+                // Fetch data (Otomatis ambil foto profil terbaru dari backend)
+
+                const res = await fetch('/api/top-sultans?t=' + new Date().getTime());
+                const json = await res.json();
+                
+                if(!json.success || json.data.length === 0) {
+                    container.innerHTML = `
+                        <div style="text-align:center; padding:40px; color:#94a3b8;">
+                            <i class="fas fa-crown fa-3x" style="opacity:0.3; margin-bottom:10px;"></i>
+                            <p>Belum ada Sultan bulan ini.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = json.data.map((user, index) => {
+                    const rank = index + 1;
+                    let extraClass = '';
+                    let trophyHtml = '';
+
+                    // Logika Styling Juara
+                    if(rank === 1) { 
+                        extraClass = 'rank-1'; 
+                        trophyHtml = '<div class="trophy-icon">👑</div>'; 
+                    } else if(rank === 2) { 
+                        extraClass = 'rank-2'; 
+                        trophyHtml = '<div class="trophy-icon">🥈</div>'; 
+                    } else if(rank === 3) { 
+                        extraClass = 'rank-3'; 
+                        trophyHtml = '<div class="trophy-icon">🥉</div>'; 
+                    }
+
+                    // Logika Centang Biru (Otomatis dari server)
+                    const verifiedIcon = user.isVerified 
+                        ? `<i class="fas fa-check-circle verified-check" title="Sultan Verified"></i>` 
+                        : '';
+
+                    // Animasi delay biar muncul satu-satu
+                    const animDelay = index * 0.1;
+
+                    return `
+                    <div class="sultan-card ${extraClass}" style="animation: slideIn 0.5s ease-out ${animDelay}s backwards;">
+                        
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <div class="rank-badge">${rank}</div>
+                            <div class="avatar-box">
+<img src="${user.profile_pic || 'images/logo1.jpg'}?v=${new Date().getTime()}" class="user-avatar" onerror="this.src='images/logo1.jpg'">
+                                ${trophyHtml}
+                            </div>
+                        </div>
+
+                        <div class="user-info">
+                            <div class="user-name">
+                                ${user.name} 
+                                ${verifiedIcon}
+                            </div>
+                            <div class="user-stats">
+                                <span class="stat-pill"><i class="fas fa-shopping-bag"></i> ${user.trxCount} Trx</span>
+                                <span>${timeAgo(user.lastTrx)}</span>
+                            </div>
+                        </div>
+
+                        <div class="total-nominal">
+                            ${formatRupiah(user.totalAmount)}
+                        </div>
+
+                    </div>`;
+                }).join('');
+
+            } catch (e) {
+                console.error(e);
+                container.innerHTML = '<p style="text-align:center; color:red;">Gagal memuat data.</p>';
+            }
+        });
+
+        // Format Uang ala Aplikasi Dana (1.5jt, 500rb)
+        function formatRupiah(num) {
+            if (num >= 1000000) return 'Rp ' + (num / 1000000).toFixed(1).replace('.0','') + 'jt';
+            if (num >= 1000) return 'Rp ' + (num / 1000).toFixed(0) + 'rb';
+            return 'Rp ' + num;
+        }
+
+        function timeAgo(dateParam) {
+            const date = new Date(dateParam);
+            const now = new Date();
+            const diff = Math.floor((now - date) / 1000); // detik
+            
+            if (diff < 60) return 'Baru saja';
+            const min = Math.floor(diff/60);
+            if (min < 60) return `${min}m lalu`;
+            const hour = Math.floor(min/60);
+            if (hour < 24) return `${hour}j lalu`;
+            const day = Math.floor(hour/24);
+            return `${day}h lalu`;
+        }
+    </script>
+</body>
+</html>

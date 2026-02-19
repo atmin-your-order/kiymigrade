@@ -1,0 +1,252 @@
+[
+  {
+    "id": 1,
+    "category": "panel",
+    "name": "PANEL 1GB",
+    "ram": 1024,
+    "disk": 1048,
+    "cpu": 60,
+    "price": 500,
+    "allowReview": true
+  },
+  {
+    "id": 2,
+    "category": "panel",
+    "name": "PANEL 2GB",
+    "ram": 2048,
+    "disk": 2048,
+    "cpu": 80,
+    "price": 4000
+  },
+  {
+    "id": 3,
+    "category": "panel",
+    "name": "PANEL 3GB",
+    "ram": 3096,
+    "disk": 3120,
+    "cpu": 90,
+    "price": 5000
+  },
+  {
+    "id": 4,
+    "category": "panel",
+    "name": "PANEL 4GB",
+    "ram": 4096,
+    "disk": 4120,
+    "cpu": 120,
+    "price": 6000
+  },
+  {
+    "id": 5,
+    "category": "panel",
+    "name": "PANEL 5GB",
+    "ram": 5096,
+    "disk": 5120,
+    "cpu": 120,
+    "price": 7000
+  },
+  {
+    "id": 6,
+    "category": "panel",
+    "name": "PANEL 6GB",
+    "ram": 6096,
+    "disk": 6120,
+    "cpu": 140,
+    "price": 8000
+  },
+  {
+    "id": 7,
+    "category": "panel",
+    "name": "PANEL 7GB",
+    "ram": 7168,
+    "disk": 7168,
+    "cpu": 160,
+    "price": 9000
+  },
+  {
+    "id": 8,
+    "category": "panel",
+    "name": "PANEL 8GB",
+    "ram": 8192,
+    "disk": 8192,
+    "cpu": 180,
+    "price": 10000
+  },
+  {
+    "id": 9,
+    "category": "panel",
+    "name": "PANEL UNLIMITED",
+    "ram": 0,
+    "disk": 0,
+    "cpu": 0,
+    "price": 15000
+  },
+  {
+    "id": 901,
+    "category": "tld",
+    "name": ".my.id",
+    "price": 2500,
+    "description": "✅ Cocok untuk Link panel\n✅ tersedia garansi jika domain error pas awal create\n✅ SEO Friendly"
+  },
+  {
+    "id": 902,
+    "category": "tld",
+    "name": ".biz.id",
+    "price": 3000,
+    "description": "✅ Cocok untuk Link panel\n✅ tersedia garansi jika domain error pas awal create\n✅ SEO Friendly"
+  },
+  {
+    "id": 903,
+    "category": "tld",
+    "name": ".web.id",
+    "price": 2500,
+    "description": "✅ Cocok untuk Link panel\n✅ tersedia garansi jika domain error pas awal create\n✅ SEO Friendly"
+  },
+  {
+    "id": 904,
+    "category": "tld",
+    "name": ".xyz",
+    "price": 3500,
+    "description": "✅ Cocok untuk Link panel\n✅ tersedia garansi jika domain error pas awal create\n✅ SEO Friendly"
+  },
+  {
+    "id": 905,
+    "category": "tld",
+    "name": ".com",
+    "price": 5000,
+    "description": "✅ Cocok untuk Link panel\n✅ tersedia garansi jika domain error pas awal create\n✅ SEO Friendly"
+  },
+  {
+    "id": 501,
+    "category": "vps",
+    "name": "VPS UPCLOUD RAM 1GB CORE 1",
+    "price": 5000,
+    "description": "Setup Manual via Chat Owner"
+  },
+  {
+    "id": 502,
+    "category": "vps",
+    "name": "VPS UPCLOUD RAM 2GB CORE 1",
+    "price": 10000,
+    "description": "Setup Manual via Chat Owner"
+  },
+  {
+    "id": 503,
+    "category": "vps",
+    "name": "VPS UPCLOUD RAM 2GB CORE 2",
+    "price": 15000,
+    "description": "Setup Manual via Chat Owner"
+  },
+  {
+    "id": 504,
+    "category": "vps",
+    "name": "VPS UPCLOUD RAM 4GB CORE 2",
+    "price": 50000,
+    "description": "Setup Manual via Chat Owner"
+  },
+  {
+    "id": 906,
+    "category": "panel",
+    "name": "PANEL 9GB",
+    "price": 12000,
+    "created_at": "2026-02-15T09:39:05.602Z",
+    "ram": 9048,
+    "disk": 9048,
+    "cpu": 210
+  },
+  {
+    "id": 907,
+    "category": "script",
+    "name": "SC CVPS X INSTALL PANEL TELE",
+    "price": 10000,
+    "created_at": "2026-02-15T15:54:19.958Z",
+    "download_url": "#",
+    "menu_preview": ""
+  },
+  {
+    "id": 908,
+    "category": "script",
+    "name": "SC AUTO ORDER NOKOS SUPPORT 180 NEGARA",
+    "price": 50000,
+    "created_at": "2026-02-15T15:58:44.945Z",
+    "download_url": "#",
+    "menu_preview": ""
+  },
+  {
+    "id": 909,
+    "category": "script",
+    "name": "SC BUG JUSTIN NEW V26",
+    "price": 35000,
+    "created_at": "2026-02-15T16:00:30.591Z",
+    "download_url": "#",
+    "menu_preview": ""
+  },
+  {
+    "id": 910,
+    "category": "script",
+    "name": "SC RALLZ AUTO ORDER V8",
+    "price": 25000,
+    "created_at": "2026-02-15T16:01:46.344Z",
+    "download_url": "#",
+    "menu_preview": ""
+  },
+  {
+    "id": 911,
+    "category": "script",
+    "name": "SC AUTO ORDER ALL NOTIFIKASI TESTIMONI LENGKAP",
+    "price": 28000,
+    "created_at": "2026-02-15T16:04:13.017Z",
+    "download_url": "#",
+    "menu_preview": ""
+  },
+  {
+    "id": 912,
+    "category": "script",
+    "name": "SC AUTO ORDER AMANE OFC ",
+    "price": 35000,
+    "created_at": "2026-02-15T16:07:12.002Z",
+    "download_url": "#",
+    "menu_preview": ""
+  },
+  {
+    "id": 913,
+    "category": "script",
+    "name": "SC USERBOT TELEGRAM",
+    "price": 20000,
+    "created_at": "2026-02-15T16:08:29.420Z",
+    "download_url": "#",
+    "menu_preview": ""
+  },
+  {
+    "id": 914,
+    "category": "vps",
+    "name": "VPS DIGITAL OCEAN R2",
+    "price": 5000,
+    "created_at": "2026-02-16T13:39:25.067Z",
+    "description": "Setup Manual via Chat Owner"
+  },
+  {
+    "id": 915,
+    "category": "vps",
+    "name": "VPS DIGITAL OCEAN R4 ",
+    "price": 8000,
+    "created_at": "2026-02-16T13:39:46.796Z",
+    "description": "Setup Manual via Chat Owner"
+  },
+  {
+    "id": 916,
+    "category": "vps",
+    "name": "VPS DIGITAL OCEAN R8",
+    "price": 10000,
+    "created_at": "2026-02-16T13:39:59.227Z",
+    "description": "Setup Manual via Chat Owner"
+  },
+  {
+    "id": 917,
+    "category": "vps",
+    "name": "VPS DIGITAL OCEAN R16",
+    "price": 15000,
+    "created_at": "2026-02-16T13:40:15.102Z",
+    "description": "Setup Manual via Chat Owner"
+  }
+]

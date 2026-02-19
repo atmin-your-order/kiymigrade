@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Daftar Akun | AmaneShop</title>
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        :root {
+            --primary: #f43f5e;
+            --accent: #f59e0b;
+            --dark: #0f172a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+        body {
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--dark);
+            /* Scroll enable untuk form panjang */
+            overflow-x: hidden; 
+            overflow-y: auto; 
+            position: relative;
+            padding: 40px 10px; /* Padding atas bawah penting biar form ga kepotong */
+        }
+
+        .bg-image {
+            position: fixed; inset: 0;
+            background: url('images/register.jpg') no-repeat center center;
+            background-size: cover;
+            z-index: -2;
+            filter: brightness(0.5);
+            /* Hapus scale berlebih */
+        }
+
+        .overlay-gradient {
+            position: fixed; inset: 0;
+            background: linear-gradient(to top, var(--dark) 0%, rgba(15, 23, 42, 0.5) 100%);
+            z-index: -1;
+        }
+
+        /* --- KOTAK REGISTER --- */
+        .register-card {
+            width: 100%;
+            max-width: 480px; /* Sedikit lebih lebar dari login */
+            background: rgba(15, 23, 42, 0.85); /* Background lebih pekat */
+            backdrop-filter: blur(8px); /* Blur ringan */
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 10;
+            animation: slideUp 0.6s ease-out;
+            margin: auto;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2.title { color: white; font-weight: 800; text-align: center; margin-bottom: 5px; font-size: 1.5rem; }
+        p.subtitle { color: #94a3b8; font-size: 0.85rem; text-align: center; margin-bottom: 25px; }
+
+        .input-group { position: relative; margin-bottom: 15px; }
+        .input-icon {
+            position: absolute; left: 15px; top: 50%; transform: translateY(-50%);
+            color: #64748b; font-size: 1rem;
+        }
+
+        .custom-input {
+            width: 100%; padding: 12px 15px 12px 45px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px; color: white;
+            font-size: 0.95rem; outline: none; transition: 0.3s;
+        }
+
+        .custom-input:focus {
+            border-color: var(--primary); background: rgba(15, 23, 42, 0.95);
+        }
+        .custom-input:focus + .input-icon { color: var(--primary); }
+
+        .toggle-pass {
+            position: absolute; right: 15px; top: 50%; transform: translateY(-50%);
+            color: #64748b; cursor: pointer; padding: 10px;
+        }
+
+        .btn-submit {
+            width: 100%; padding: 14px; border: none; border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, #be123c 100%);
+            color: white; font-weight: 700; font-size: 1rem;
+            cursor: pointer; margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(244, 63, 94, 0.4); transition: 0.3s;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(244, 63, 94, 0.6); }
+
+        .back-link {
+            position: absolute; top: 20px; left: 20px;
+            color: rgba(255,255,255,0.8); text-decoration: none;
+            font-size: 0.9rem; z-index: 20; display: flex; align-items: center; gap: 8px;
+            background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .login-area {
+            margin-top: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 15px; font-size: 0.85rem; color: #94a3b8;
+        }
+        .login-link { color: var(--accent); font-weight: bold; text-decoration: none; }
+
+        /* GRID: Default Desktop 2 Kolom */
+        .row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+
+        .otp-display {
+            font-size: 2rem; letter-spacing: 10px; font-weight: bold;
+            text-align: center; color: white; margin: 20px 0;
+            background: transparent; border: none; border-bottom: 2px solid var(--primary);
+            width: 100%; outline: none;
+        }
+
+        /* --- RESPONSIF & PINTAR --- */
+        @media (max-width: 600px) {
+            /* Di HP, jadikan 1 kolom biar input tidak kekecilan */
+            .row-grid { grid-template-columns: 1fr; gap: 0; }
+            .register-card { padding: 30px 20px; width: 95%; }
+            h2.title { font-size: 1.4rem; }
+        }
+        
+        @media (max-width: 400px) {
+            .custom-input { font-size: 0.9rem; }
+            .back-link { top: 10px; left: 10px; font-size: 0.8rem; }
+            .otp-display { font-size: 1.5rem; letter-spacing: 5px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-image"></div>
+    <div class="overlay-gradient"></div>
+
+    <a href="/login" class="back-link">
+        <i class="fas fa-arrow-left"></i> Kembali
+    </a>
+
+    <div class="register-card">
+        <h2 class="title">BUAT AKUN BARU</h2>
+        <p class="subtitle">Gabung sekarang di Amane Shop</p>
+        
+        <div id="step-1" class="step-container">
+            <div class="input-group">
+                <input type="text" id="reg-name" class="custom-input" placeholder="Nama Lengkap">
+                <i class="fas fa-id-card input-icon"></i>
+            </div>
+
+            <div class="row-grid">
+                <div class="input-group">
+                    <input type="text" id="reg-user" class="custom-input" placeholder="Username">
+                    <i class="fas fa-user-tag input-icon"></i>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="reg-phone" class="custom-input" placeholder="Nomor WA (08xx)">
+                    <i class="fab fa-whatsapp input-icon"></i>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="reg-pass" class="custom-input" placeholder="Buat Kata Sandi">
+                <i class="fas fa-lock input-icon"></i>
+                <i class="fas fa-eye toggle-pass" onclick="togglePass('reg-pass', this)"></i>
+            </div>
+            
+            <button onclick="requestOtp()" id="btn-step1" class="btn-submit">
+                DAPATKAN KODE OTP <i class="fas fa-paper-plane" style="margin-left:5px;"></i>
+            </button>
+            
+            <div class="login-area">
+                Sudah punya akun? <a href="/login" class="login-link">Login Disini</a>
+            </div>
+        </div>
+
+        <div id="step-2" class="step-container" style="display: none; text-align: center;">
+            <div style="margin-bottom: 15px;">
+                <i class="fas fa-shield-alt" style="font-size: 3rem; color: var(--primary);"></i>
+            </div>
+            
+            <h3 style="color:white; margin-bottom:5px;">Verifikasi Nomor</h3>
+            <p style="color:#94a3b8; font-size:0.85rem;">Kode dikirim ke: <br><b id="text-phone" style="color:var(--accent);">...</b></p>
+
+            <input type="number" id="reg-otp" class="otp-display" placeholder="XXXX">
+            
+            <div id="timer" style="color: #f59e0b; font-weight: bold; font-size: 0.9rem; margin-bottom: 15px;">01:00</div>
+
+            <button onclick="submitRegister()" id="btn-step2" class="btn-submit">
+                VERIFIKASI & DAFTAR
+            </button>
+
+            <button onclick="location.reload()" style="background:transparent; border:none; color:#ef4444; margin-top:15px; cursor:pointer; font-size:0.8rem;">
+                <i class="fas fa-redo"></i> Ulangi / Ganti Nomor
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        function togglePass(id, icon) {
+            const input = document.getElementById(id);
+            if (input.type === "password") {
+                input.type = "text"; icon.classList.replace('fa-eye', 'fa-eye-slash'); icon.style.color = "var(--primary)";
+            } else {
+                input.type = "password"; icon.classList.replace('fa-eye-slash', 'fa-eye'); icon.style.color = "";
+            }
+        }
+
+        document.getElementById('reg-user').addEventListener('input', function() {
+            this.value = this.value.toLowerCase().replace(/[^a-z0-9_]/g, '').substring(0, 20);
+        });
+
+        let otpInterval;
+
+        async function requestOtp() {
+            const name = document.getElementById('reg-name').value;
+            const username = document.getElementById('reg-user').value.toLowerCase().replace(/\s/g, '');
+            const phone = document.getElementById('reg-phone').value;
+            const pass = document.getElementById('reg-pass').value;
+
+            if(!name || !username || !phone || !pass) {
+                return Swal.fire({toast: true, position: 'top', icon:'warning', title:'Lengkapi semua data!', background: '#1f2937', color: '#fff'});
+            }
+            
+            const btn = document.getElementById('btn-step1');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...'; btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/send-otp', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ phone, username, type: 'register' })
+                });
+                const data = await res.json();
+
+                if(data.success) {
+                    document.getElementById('step-1').style.display = 'none';
+                    document.getElementById('step-2').style.display = 'block';
+                    document.getElementById('text-phone').innerText = phone;
+                    
+                    Swal.fire({
+                        title: 'KODE OTP ANDA',
+                        html: `<div style="font-size: 2rem; font-weight:800; color: #10b981; margin: 10px 0;">${data.otp_code}</div>`,
+                        timer: 60000, timerProgressBar: true,
+                        background: '#1f2937', color: '#fff'
+                    });
+
+                    startTimer(60);
+                } else {
+                    Swal.fire({title:'Gagal', text:data.message, icon:'error', background: '#1f2937', color: '#fff'});
+                }
+            } catch(e) { 
+                Swal.fire({title:'Error', text:'Koneksi error.', icon:'error', background: '#1f2937', color: '#fff'}); 
+            }
+            btn.innerHTML = originalText; btn.disabled = false;
+        }
+
+        async function submitRegister() {
+            const name = document.getElementById('reg-name').value;
+            const username = document.getElementById('reg-user').value;
+            const phone = document.getElementById('reg-phone').value;
+            const password = document.getElementById('reg-pass').value;
+            const otp = document.getElementById('reg-otp').value;
+
+            if(!otp || otp.length < 4) return Swal.fire({toast:true, position:'top', title:'Isi Kode OTP!', icon:'warning', background:'#1f2937', color:'#fff'});
+
+            const btn = document.getElementById('btn-step2');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...'; btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/register', {
+                    method: 'POST', headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ name, username, phone, password, otp })
+                });
+                const data = await res.json();
+                
+                if(data.success) {
+                    Swal.fire({
+                        title: 'Sukses!', text: 'Akun aktif.', icon: 'success',
+                        background: '#1f2937', color: '#fff', showConfirmButton: false, timer: 1500
+                    }).then(() => { window.location.href = '/login'; });
+                } else {
+                    Swal.fire({title:'Gagal', text:data.message, icon:'error', background: '#1f2937', color: '#fff'});
+                    btn.innerHTML = originalText; btn.disabled = false;
+                }
+            } catch(e) { 
+                Swal.fire({title:'Error', text:'Server Error.', icon:'error', background: '#1f2937', color: '#fff'});
+                btn.innerHTML = originalText; btn.disabled = false;
+            }
+        }
+
+        function startTimer(duration) {
+            let timer = duration, minutes, seconds;
+            const display = document.getElementById('timer');
+            clearInterval(otpInterval);
+            otpInterval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = "Sisa: " + minutes + ":" + seconds;
+                if (--timer < 0) {
+                    clearInterval(otpInterval);
+                    display.textContent = "Waktu Habis";
+                    display.style.color = '#ef4444';
+                    document.getElementById('btn-step2').disabled = true;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

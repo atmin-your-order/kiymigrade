@@ -1,26 +1,102 @@
-// Supabase Client Configuration and Database Helper Functions
+// supabase.js
 
 import { createClient } from '@supabase/supabase-js';
 
-// Initialize Supabase client
-const supabaseUrl = 'YOUR_SUPABASE_URL'; // Replace with your Supabase URL
-const supabaseKey = 'YOUR_SUPABASE_KEY'; // Replace with your Supabase Key
+// Define your Supabase URL and Key (keep these private in production)
+const supabaseUrl = 'https://your-supabase-url.supabase.co';
+const supabaseKey = 'your-public-anon-key';
+
+// Create a single supabase client for interacting with your database
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-/**
- * Function to migrate data from JSON to Supabase
- * @param {Array} jsonData - Array of JSON objects to migrate
- */
-async function migrateJsonToSupabase(jsonData) {
+// User Functions
+export const getUsers = async () => {
     const { data, error } = await supabase
-        .from('your_table_name') // Replace with your Supabase table
-        .insert(jsonData);
+        .from('users')
+        .select('*');
+    return { data, error };
+};
 
-    if (error) {
-        console.error('Migration error:', error);
-        return false;
-    }
-    return data;
-}
+export const createUser = async (userData) => {
+    const { data, error } = await supabase
+        .from('users')
+        .insert([userData]);
+    return { data, error };
+};
 
-export { supabase, migrateJsonToSupabase };
+// Product Functions
+export const getProducts = async () => {
+    const { data, error } = await supabase
+        .from('products')
+        .select('*');
+    return { data, error };
+};
+
+export const createProduct = async (productData) => {
+    const { data, error } = await supabase
+        .from('products')
+        .insert([productData]);
+    return { data, error };
+};
+
+// Panel Functions
+export const getPanels = async () => {
+    const { data, error } = await supabase
+        .from('panels')
+        .select('*');
+    return { data, error };
+};
+
+export const createPanel = async (panelData) => {
+    const { data, error } = await supabase
+        .from('panels')
+        .insert([panelData]);
+    return { data, error };
+};
+
+// Transaction Functions
+export const getTransactions = async () => {
+    const { data, error } = await supabase
+        .from('transactions')
+        .select('*');
+    return { data, error };
+};
+
+export const createTransaction = async (transactionData) => {
+    const { data, error } = await supabase
+        .from('transactions')
+        .insert([transactionData]);
+    return { data, error };
+};
+
+// Visitor Functions
+export const getVisitors = async () => {
+    const { data, error } = await supabase
+        .from('visitors')
+        .select('*');
+    return { data, error };
+};
+
+export const createVisitor = async (visitorData) => {
+    const { data, error } = await supabase
+        .from('visitors')
+        .insert([visitorData]);
+    return { data, error };
+};
+
+// Notification Functions
+export const getNotifications = async () => {
+    const { data, error } = await supabase
+        .from('notifications')
+        .select('*');
+    return { data, error };
+};
+
+export const createNotification = async (notificationData) => {
+    const { data, error } = await supabase
+        .from('notifications')
+        .insert([notificationData]);
+    return { data, error };
+};
+
+export default supabase;
